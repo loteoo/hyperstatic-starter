@@ -1,22 +1,15 @@
-<p align="center">
-  <a href="https://github.com/jorgebucaran/hyperapp">
-    <img alt="Hyperapp non-official logo" src="https://raw.githubusercontent.com/loteoo/hyperapp-boilerplate/master/src/assets/icon-180x180.png" width="80" />
-  </a>
-</p>
 <h1 align="center">
-  Hyperapp 2.0 boilerplate
+  Hyperapp site generator starter
 </h1>
-
-Starter template to quickly build front-ends using Hyperapp with a modern configuration and best-practices in mind.  
 
 
 ## 🚀 Quick start: 
-[Click here to use this template](https://github.com/loteoo/hyperapp-boilerplate/generate), or run these commands:  
+[Click here to use this template](https://github.com/loteoo/hyperapp-site-generator-starter/generate), or run these commands:  
 ```
 # Clone project
-git clone https://github.com/loteoo/hyperapp-boilerplate.git
+git clone https://github.com/loteoo/hyperapp-site-generator-starter.git
 
-cd hyperapp-boilerplate
+cd hyperapp-site-generator-starter
 
 npm install         # Install dependencies
 npm start           # Dev server + live reload
@@ -24,9 +17,14 @@ npm start           # Dev server + live reload
 
 
 ```
-npm run build   # Build for production and generate service worker
+# Build for production and generate service worker
+npm run build
+
+# Build for production, generate service worker AND pre-render pages
+npm run render-pages
 ```
-Or use a [.zip download](https://github.com/loteoo/hyperapp-boilerplate/archive/master.zip)
+
+Or use a [.zip download](https://github.com/loteoo/hyperapp-site-generator-starter/archive/master.zip)
 
 
 ## Features
@@ -37,6 +35,7 @@ Or use a [.zip download](https://github.com/loteoo/hyperapp-boilerplate/archive/
 - Uses the [Standard](https://standardjs.com/) JavaScript style guide with eslint  
 -  Automatic import of the `h` function (say goodbye to that `h` import!)
 - [JSX](https://reactjs.org/docs/introducing-jsx.html) and all of the ES6-7-8-9 goodies are ready to go thanks to Parcel.
+- Cutting edge code-splitting and bundle loading layer
 
 
 ## File structure
@@ -46,8 +45,8 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 ├── dist/                             # Compiled static files (parcel output)
 ├── src/                              # Application source code
 │   ├── app/                          # App files
-│   │   ├── pages/                    # Pages are top level components, triggered by a router
-│   │   ├── components/               # Hyperapp components
+│   │   ├── pages/                    # Site pages
+│   │   ├── components/               # Other components
 │   │   │   ├── {ComponentName}/      # Advanced component with multiple files
 │   │   │   │   ├── actions.js        # Local actions
 │   │   │   │   ├── index.jsx         # Exported view
@@ -57,9 +56,8 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 │   │   │   └── {ComponentName}.jsx   # Single file component
 │   │   ├── actions.js                # Global actions
 │   │   ├── init.js                   # Initial app state
-│   │   ├── utils.js                  # Misc utility functions
+│   │   ├── routes.js                 # Route patterns
 │   │   └── view.jsx                  # Root view
-│   ├── assets/                       # Global application assets (favicon, fonts...)
 │   ├── app.js                        # Hyperapp instantiation
 │   ├── global.css                    # Global styles
 │   ├── index.html                    # Parcel entry
@@ -71,33 +69,11 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 
 
 
-
-
 ---  
 
 
 
 
-
-
-### To-do list demo app:
-Basic CRUD actions with hyperapp 2.0  
-https://github.com/loteoo/hyperapp-todolist
-
-
-
-
-### FAQ:
-
-> How do I deploy my app?
-By default, apps using this boilerplate can be considered *static sites*, which means you can deploy for free on services like Netlify and Github Pages.
-
-> Why so many commits?
-Even is there are not that many files in this boilerplate, it's configuration has been meticulously though over and over to make sure you hit the ground running and focus on your idea.
-
-
----  
-
-
+This starter project was based of this [Hyperapp boilerplate](https://github.com/loteoo/hyperapp-boilerplate), with the site-generator and a few pages added in.
 
 
