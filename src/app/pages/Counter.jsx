@@ -1,18 +1,18 @@
+// Actions
 export const Init = (state) => ({
   ...state,
   counter: 0
 })
-
 const Increment = (state) => ({
   ...state,
   counter: state.counter + 1
 })
-
 const Decrement = (state) => ({
   ...state,
   counter: state.counter - 1
 })
 
+// View
 export default (state) => (
   <div>
     <h2>Counter</h2>

@@ -1,14 +1,23 @@
 
 import { Router, Link } from 'hyperapp-site-generator'
 
+const container = {
+  maxWidth: '640px',
+  margin: '3rem auto'
+}
+
 // Root application view
 export default (state) => (
-  <div>
+  <div style={container}>
     <nav>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/counter">Counter</Link>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/counter">Counter</Link></li>
+      </ul>
     </nav>
-    {Router(state)}
+    <main>
+      {Router(state)}
+    </main>
   </div>
 )

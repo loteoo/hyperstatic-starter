@@ -1,3 +1,4 @@
+// Just a view
 export default (state) => (
   <div>
     <h2>About page</h2>
