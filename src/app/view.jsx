@@ -9,15 +9,22 @@ const container = {
 // Root application view
 export default (state) => (
   <div style={container}>
-    <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/counter">Counter</Link></li>
-      </ul>
-    </nav>
+    <header>
+      <nav>
+        <ul>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/counter">Counter</Link>
+        </ul>
+      </nav>
+    </header>
     <main>
       {Router(state)}
     </main>
+    <footer>
+      <a href="https://github.com/loteoo/hyperapp-site-generator-starter" target="_blank">Boilerplate</a>
+      <a href="https://github.com/loteoo/hyperapp-site-generator" target="_blank">Generator</a>
+      <a href="https://hyperapp-site-generator-demo.netlify.com/" target="_blank">Demo site</a>
+    </footer>
   </div>
 )
