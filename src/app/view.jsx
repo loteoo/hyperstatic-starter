@@ -3,7 +3,8 @@ import { Router, Link } from 'hyperapp-site-generator'
 
 const container = {
   maxWidth: '640px',
-  margin: '3rem auto'
+  margin: '3rem auto',
+  padding: '1rem'
 }
 
 // Root application view
