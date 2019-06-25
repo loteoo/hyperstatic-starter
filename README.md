@@ -15,7 +15,10 @@ npm install         # Install dependencies
 npm start           # Dev server + live reload
 ```
 
+Or use a [.zip download](https://github.com/loteoo/hyperapp-site-generator-starter/archive/master.zip)  
 
+
+#### Building your site : 
 ```
 # Build for production and generate service worker
 npm run build
@@ -24,11 +27,8 @@ npm run build
 npm run render-pages
 ```
 
-Or use a [.zip download](https://github.com/loteoo/hyperapp-site-generator-starter/archive/master.zip)
-
-
 ## Features
-- Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading.  (It's  blazing fast, easy to use and reliable)
+- Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading.  
 - Works offline out of the box using [workbox](https://developers.google.com/web/tools/workbox/) to generate service workers and precache application files
 - PWA/SPA ready with a default web app manifest
 - Sane CSS defaults using [sanitize.css](https://csstools.github.io/sanitize.css/), a best-practices CSS reset
