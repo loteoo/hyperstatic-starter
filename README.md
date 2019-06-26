@@ -2,7 +2,7 @@
   Hyperapp site generator starter
 </h1>
 
-[Not production ready!]
+#### Not production ready! Do open up issues! Thanks!
 
 [Live demo](https://hyperapp-site-generator-starter.netlify.com/)
 
