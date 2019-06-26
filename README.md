@@ -2,6 +2,8 @@
   Hyperapp site generator starter
 </h1>
 
+[Not production ready!]
+
 [Live demo](https://hyperapp-site-generator-starter.netlify.com/)
 
 
