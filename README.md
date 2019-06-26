@@ -2,8 +2,7 @@
   Hyperapp site generator starter
 </h1>
 
-#### Live demo:   
-https://hyperapp-site-generator-starter.netlify.com/
+[Live demo](https://hyperapp-site-generator-starter.netlify.com/)
 
 
 ## 🚀 Quick start: 
