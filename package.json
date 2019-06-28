@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "hyperapp": "^2.0.0-beta.22",
-    "hyperapp-site-generator": "0.0.16",
+    "hyperapp-site-generator": "0.0.18",
     "sanitize.css": "^10.0.0"
   },
   "devDependencies": {
