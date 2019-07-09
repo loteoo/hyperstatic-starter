@@ -1,4 +1,4 @@
-const renderPages = require('hyperapp-site-generator/src/renderPages');
+const renderPages = require('hyperstatic/src/renderPages');
 
 (async () => {
   let pages = [

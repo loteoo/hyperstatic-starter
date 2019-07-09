@@ -4,22 +4,22 @@
 
 #### Not production ready! Do open up issues! Thanks!
 
-[Live demo](https://hyperapp-site-generator-starter.netlify.com/)
+[Live demo](https://hyperstatic-starter.netlify.com/)
 
 
 ## 🚀 Quick start: 
-[Click here to use this template](https://github.com/loteoo/hyperapp-site-generator-starter/generate), or run these commands:  
+[Click here to use this template](https://github.com/loteoo/hyperstatic-starter/generate), or run these commands:  
 ```
 # Clone project
-git clone https://github.com/loteoo/hyperapp-site-generator-starter.git
+git clone https://github.com/loteoo/hyperstatic-starter.git
 
-cd hyperapp-site-generator-starter
+cd hyperstatic-starter
 
 npm install         # Install dependencies
 npm start           # Dev server + live reload
 ```
 
-Or use a [.zip download](https://github.com/loteoo/hyperapp-site-generator-starter/archive/master.zip)  
+Or use a [.zip download](https://github.com/loteoo/hyperstatic-starter/archive/master.zip)  
 
 
 #### Building your site : 
@@ -32,7 +32,7 @@ npm run render-pages
 ```
 
 ## Features
-- Cutting edge code-splitting and bundle loading layer using the [Hyperapp site generator](https://hyperapp-site-generator-demo.netlify.com/)  
+- Cutting edge code-splitting and bundle loading layer using the [Hyperapp site generator](https://hyperstatic-demo.netlify.com/)  
 - Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading...  
 - Works offline out of the box using [workbox](https://developers.google.com/web/tools/workbox/) to generate service workers and precache application files  
 - PWA/SPA ready with a default web app manifest  
