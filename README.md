@@ -1,8 +1,6 @@
 <h1 align="center">
-  Hyperapp site generator starter
+  Hyperstatic starter
 </h1>
-
-#### Not production ready! Do open up issues! Thanks!
 
 [Live demo](https://hyperstatic-starter.netlify.com/)
 
@@ -32,7 +30,7 @@ npm run render-pages
 ```
 
 ## Features
-- Cutting edge code-splitting and bundle loading layer using the [Hyperapp site generator](https://hyperstatic-demo.netlify.com/)  
+- Cutting edge code-splitting and bundle loading layer using [Hyperstatic](https://hyperstatic-demo.netlify.com/)  
 - Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading...  
 - Works offline out of the box using [workbox](https://developers.google.com/web/tools/workbox/) to generate service workers and precache application files  
 - PWA/SPA ready with a default web app manifest  
@@ -50,13 +48,13 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 ├── src/                              # Application source code
 │   ├── app/                          # App files
 │   │   ├── pages/                    # Site pages
-│   │   ├── components/               # Other components
-│   │   │   ├── {ComponentName}/      # Advanced component with multiple files
+│   │   │   ├── {PageName}.jsx        # Single file page
+│   │   │   ├── {PageName}/           # Page with multiple files
 │   │   │   │   ├── actions.js        # Local actions
 │   │   │   │   ├── index.jsx         # Exported view
-│   │   │   │   ├── init.js           # Initial local state
-│   │   │   │   ├── style.css         # Component styles
-│   │   │   │   └── other.svg         # Other related files (which are only used by the component)
+│   │   │   │   ├── style.css         # Page styles
+│   │   │   │   └── other.svg         # Other related files
+│   │   ├── components/               # Other components
 │   │   │   └── {ComponentName}.jsx   # Single file component
 │   │   ├── actions.js                # Global actions
 │   │   ├── init.js                   # Initial app state
@@ -78,6 +76,6 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 
 
 
-This starter project was based on this [Hyperapp boilerplate](https://github.com/loteoo/hyperapp-boilerplate). The site-generator and a few pages was then added in.
+This starter project was based on this [Hyperapp boilerplate](https://github.com/loteoo/hyperapp-boilerplate). Hyperstatic and a few pages was then added in.
 
 
