@@ -76,6 +76,6 @@ Proposed folder structure as your project grows. Adapt it to your needs.
 
 
 
-This starter project was based on this [Hyperapp boilerplate](https://github.com/loteoo/hyperapp-boilerplate). Hyperstatic and a few pages was then added in.
+This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter). Hyperstatic and a few pages was then added in.
 
 

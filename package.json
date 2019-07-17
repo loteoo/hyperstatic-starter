@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "hyperstatic-starter",
-  "description": "Hyperapp PWA boilerplate",
+  "description": "Hyperstatic starter",
   "author": "Alexandre Lotte",
   "license": "MIT",
   "scripts": {
