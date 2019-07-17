@@ -1,1 +1,1 @@
-// Global app actions (non page-specific)
+// Global app actions

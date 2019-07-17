@@ -3,7 +3,7 @@ const renderPages = require('hyperstatic/src/renderPages');
 (async () => {
   let pages = [
     '/',
-    '/about',
+    '/example-page',
     '/counter'
   ]
 

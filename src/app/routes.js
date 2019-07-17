@@ -1,5 +1,5 @@
 export default {
   '/': import('./pages/Home'),
-  '/about': import('./pages/About'),
+  '/example-page': import('./pages/Page'),
   '/counter': import('./pages/Counter')
 }

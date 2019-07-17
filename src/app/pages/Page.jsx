@@ -1,7 +1,7 @@
 // Just a view
 export default () => (
   <div>
-    <h2>About page</h2>
-    <p>Lorem lorem lorem...</p>
+    <h2>Example page</h2>
+    <p>Go wild!</p>
   </div>
 )
