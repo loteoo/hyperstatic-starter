@@ -22,8 +22,8 @@
     ]
   },
   "dependencies": {
-    "hyperapp": "^2.0.0-beta.22",
-    "hyperstatic": "0.2.4",
+    "hyperapp": "^2.0.1",
+    "hyperstatic": "^0.2.5",
     "sanitize.css": "^10.0.0"
   },
   "devDependencies": {
