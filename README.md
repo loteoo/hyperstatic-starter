@@ -31,7 +31,7 @@ npm run render-pages
 
 ## Features
 - Route-based code-splitting using [Hyperstatic](https://hyperstatic.dev/)  
-- Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading...  
+- Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading  
 - Works offline out of the box using [workbox](https://developers.google.com/web/tools/workbox/) to generate service workers and precache application files  
 - PWA/SPA ready with a default web app manifest  
 - Sane CSS defaults using [sanitize.css](https://csstools.github.io/sanitize.css/), a best-practices CSS reset  
