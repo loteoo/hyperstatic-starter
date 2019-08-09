@@ -30,7 +30,7 @@ npm run render-pages
 ```
 
 ## Features
-- Cutting edge code-splitting and bundle loading layer using [Hyperstatic](https://hyperstatic-demo.netlify.com/)  
+- Route-based code-splitting using [Hyperstatic](https://hyperstatic.dev/)  
 - Uses [Parcel](https://parceljs.org/) for compilation, dev server and hot module reloading...  
 - Works offline out of the box using [workbox](https://developers.google.com/web/tools/workbox/) to generate service workers and precache application files  
 - PWA/SPA ready with a default web app manifest  
