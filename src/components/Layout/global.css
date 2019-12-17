@@ -50,19 +50,3 @@ pre code {
   display: block;
   padding: 1rem;
 }
-
-.container {
-  max-width: 640px;
-  margin: 3rem auto;
-  padding: 1rem;
-}
-
-header a {
-  margin-right: 1rem;
-}
-footer {
-  margin: 3rem 0;
-}
-footer a {
-  margin-right: 1rem;
-}
