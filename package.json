@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "hyperapp": "^2.0.3",
-    "hyperstatic": "^0.2.8",
+    "hyperstatic": "^0.2.9",
     "sanitize.css": "^10.0.0"
   },
   "devDependencies": {
