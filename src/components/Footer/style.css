@@ -1,6 +1,6 @@
 footer {
   margin: 3rem 0;
-}
-footer a {
-  margin-right: 1rem;
+  a {
+    margin-right: 1rem;
+  }
 }

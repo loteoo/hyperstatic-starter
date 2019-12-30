@@ -10,9 +10,6 @@ import 'sanitize.css/forms.css'
 // Global styling
 import './global.css'
 
-// Utility classes
-import './utils.css'
-
 // Root application view
 export default (state) => (
   <div class="container">
