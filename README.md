@@ -40,40 +40,7 @@ npm run render-pages
 - [JSX](https://reactjs.org/docs/introducing-jsx.html) and all of the ES6-7-8-9 goodies are ready to go thanks to Parcel.  
 
 
-## Sample file structure
-Proposed folder structure as your project grows. Adapt it to your needs.  
-
-```
-├── dist/                             # Compiled static files (build output)
-├── src/                              # Application source code
-│   ├── app/                          # App files
-│   │   ├── pages/                    # Site pages
-│   │   │   ├── {PageName}.jsx        # Single file page
-│   │   │   ├── {PageName}/           # Page with multiple files
-│   │   │   │   ├── actions.js        # Local actions
-│   │   │   │   ├── index.jsx         # Exported view
-│   │   │   │   ├── style.css         # Page styles
-│   │   │   │   └── other.svg         # Other related files
-│   │   ├── components/               # Other components
-│   │   │   └── {ComponentName}.jsx   # Single file component
-│   │   ├── actions.js                # Global actions
-│   │   ├── init.js                   # Initial app state
-│   │   ├── routes.js                 # Route patterns
-│   │   └── view.jsx                  # Root view
-│   ├── app.js                        # Hyperapp instantiation
-│   ├── global.css                    # Global styles
-│   ├── index.html                    # Parcel entry
-│   └── manifest.webmanifest          # Web app manifest
-├── static/                           # Files to be copied in dist folder
-├── ...
-...
-```
-
-
-
 ---  
-
-
 
 
 This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter). Hyperstatic and a few pages was then added in.
