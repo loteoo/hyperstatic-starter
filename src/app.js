@@ -1,23 +1,15 @@
 import { hyperstatic } from 'hyperstatic'
 
-// Import best-practices css defaults
-import 'sanitize.css'
-import 'sanitize.css/typography.css'
-import 'sanitize.css/forms.css'
-
-// Global styling
-import './global.css'
-
 // App init imports
 import routes from './app/routes'
 import init from './app/init'
-import view from './app/view'
+import Layout from './components/Layout'
 
 // Initialize the app
 hyperstatic({
   routes,
   init,
-  view,
+  view: Layout,
   node: document.getElementById('app')
 })
 

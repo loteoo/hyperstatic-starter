@@ -1,0 +1,123 @@
+/*------------------------------------*\
+  Global css
+\*------------------------------------*/
+/* === Global variables === */
+:root {
+	--background-color: #ffffff;
+	--alt-background-color: #f4f4f4;
+	--text-color: #121212;
+  --accent-color: #0000FF;
+  --container-width: 640px;
+}
+
+/* === Default cascade === */
+html {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+::selection {
+	background: var(--accent-color);
+	color: var(--background-color);
+}
+
+iframe,
+img,
+input,
+select,
+textarea {
+  max-width: 100%;
+  height: auto;
+}
+
+
+h1, h2, h3, h4, h5, h6, p {
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+button, .button {
+  cursor: pointer;
+  color: var(--text-color);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.025);
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  &:focus {
+    outline: none;
+    border-color: currentColor;
+  }
+  & + & {
+    margin-left: 0.5rem;
+  }
+}
+
+
+input,
+select,
+textarea {
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  &:focus {
+    outline: none;
+    border-color: var(--text-color);
+  }
+}
+
+textarea {
+  min-height: 2.625rem;
+}
+
+select {
+  padding-right: 1.25rem;
+}
+
+code {
+  display: inline-block;
+  background-color: var(--alt-background-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+pre code {
+  display: block;
+  padding: 1rem;
+}
+
+hr {
+  margin: 1rem 0;
+  border: none;
+  height: 1px;
+  background-color: currentColor;
+}
+
+
+
+
+/* === Utility classes === */
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 1rem;
+}

@@ -1,0 +1,6 @@
+{
+  "plugins": {
+    "postcss-nested": true,
+    "postcss-preset-env": true
+  }
+}
