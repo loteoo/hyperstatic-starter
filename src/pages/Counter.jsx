@@ -1,19 +1,19 @@
 // Actions
-export const Init = (state) => ({
+export const Init = state => ({
   ...state,
   counter: 0
 })
-const Increment = (state) => ({
+const Increment = state => ({
   ...state,
   counter: state.counter + 1
 })
-const Decrement = (state) => ({
+const Decrement = state => ({
   ...state,
   counter: state.counter - 1
 })
 
 // View
-export default (state) => (
+export default state => (
   <div>
     <h2>Counter</h2>
     <h1>{state.counter}</h1>

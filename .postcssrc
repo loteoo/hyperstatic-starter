@@ -1,6 +1,10 @@
 {
+  "modules": true,
   "plugins": {
-    "postcss-nested": true,
-    "postcss-preset-env": true
-  }
+    "postcss-preset-env": {},
+    "postcss-nested": {},
+    "postcss-modules": {
+      "camelCase": true
+    }
+  },
 }

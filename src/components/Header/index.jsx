@@ -1,9 +1,9 @@
 import { Link } from 'hyperstatic'
 
-import './style.css'
+import styles from './header.css'
 
 export default () => (
-  <header>
+  <header class={styles.header}>
     <Link to="/">Home</Link>
     <Link to="/example-page">Example page</Link>
     <Link to="/counter">Counter</Link>
