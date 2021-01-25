@@ -1,9 +1,3 @@
-import fx from '/utils/fx'
+const fx = a => b => [a, b]
 
-export const navigate = fx((dispatch, to) => {
-  history.pushState(null, '', to)
-  dispatchEvent(new CustomEvent("pushstate"))
-  window.scroll({
-    top: 0
-  })
-})
+export default fx

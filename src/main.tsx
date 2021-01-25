@@ -1,21 +1,24 @@
 import { app } from 'hyperapp'
 
 // Middlewares
-import withLocation from './utils/routing/withLocation'
+import hyperstatic from './utils/routing/hyperstatic'
 
 // Root view
 import App from '/components/core/App'
 
-// Data for initial state
-import { init as homeInit } from '/pages/HomePage'
-import { init as counterInit } from '/pages/CounterPage'
-
 // Global styles
 import '/styles/base.css'
 
+const routes = {}
+const options = {}
+
 // Initialize the app on the #app div
-withLocation(app)({
-  init: { ...homeInit, ...counterInit },
+hyperstatic(
+  app,
+  routes,
+  options
+)({
+  init: {},
   view: App,
   node: document.getElementById('app')
 })

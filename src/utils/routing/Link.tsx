@@ -1,4 +1,4 @@
-import { navigate } from './fx'
+import { navigate } from './navigate'
 
 const Link = ({ href, ...rest }, children) => {
   const HandleClick = (state, ev) => {

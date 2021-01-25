@@ -1,10 +1,11 @@
 import parseQueryString from './parseQueryString'
 
-const parseUrl = (url: string) => {
-  const [path, queryString] = url.split('?')
+const parseUrl = (url) => {
+  const [path, qs] = url.split('?')
   return {
     path,
-    query: parseQueryString(queryString),
+    query: qs ? parseQueryString(qs) : {},
+    route: ''
   }
 }
 
