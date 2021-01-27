@@ -1,15 +1,28 @@
+import { h } from 'hyperapp'
+import { loadRoute } from './loadRoute'
 import { navigate } from './navigate'
 
-const Link = ({ href, ...rest }, children) => {
-  const HandleClick = (state, ev) => {
+const Link = ({ href, ...rest }, children) => ({ meta, getLocation }) => {
+  const { route } = getLocation(href)
+
+  const HandleClick = (state: State, ev) => {
     ev.preventDefault()
-    return [state, navigate(href)]
+
+    const actionArray = [state, navigate(href)]
+
+    if (state.routes[route].status === 'iddle') {
+      actionArray.push(loadRoute({ route, meta }))
+    }
+
+    return actionArray
   }
-  return (
-    <a href={href} onclick={HandleClick} {...rest}>
-      {children}
-    </a>
-  )
+  // const { route } = getLocation(href)
+  // if (!meta[route].bundle) {
+  //   meta[route].promise.then((bundle) => {
+  //     meta[route].bundle = bundle
+  //   })
+  // }
+  return h('a', { href, onclick: HandleClick, ...rest }, children)
 }
 
 export default Link

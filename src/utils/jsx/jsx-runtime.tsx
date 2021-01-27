@@ -1,25 +1,16 @@
-import { h, text } from "hyperapp"
+import { h, text } from 'hyperapp'
 
-const textTypes = ["string", "number", "bigint"];
+const textTypes = ['string', 'number', 'bigint']
 
-const childNode = (child) => textTypes.includes(typeof child) ? text(child) : child;
+const childNode = (child) =>
+  textTypes.includes(typeof child) ? text(child) : child
 
 export const jsx = (tag, { children, ...props }, key) =>
-  typeof tag === "function"
-    ? tag({ ...props, key }, children)
-    : h(
-        tag,
-        { ...props, key },
-        childNode(children)
-      )
-    
+  typeof tag === 'function'
+    ? tag({ ...props, key }, childNode(children))
+    : h(tag, { ...props, key }, childNode(children))
 
 export const jsxs = (tag, { children, ...props }, key) =>
-  typeof tag === "function"
-    ? tag({ ...props, key }, children)
-    : h(
-        tag,
-        { ...props, key },
-        children.map(childNode)
-      )
-
+  typeof tag === 'function'
+    ? tag({ ...props, key }, childNode(children))
+    : h(tag, { ...props, key }, children.map(childNode))

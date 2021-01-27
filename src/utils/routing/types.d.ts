@@ -1,16 +1,20 @@
 interface LocationState {
+  route?: string;
   path: string;
   params: any;
   query: any;
-  route?: string;
 }
 
-type RoutesState = Record<string, {
-  status: 'iddle' | 'loading' | 'loaded';
+type RouteStatus = 'iddle' | 'loading' | 'ready' | 'error';
+
+interface RouteState {
+  status: RouteStatus;
   initialized: boolean;
-}>
+}
+
+type RoutesState = Record<string, RouteState>
 
 interface State {
-  location: Location;
+  location: LocationState;
   routes: RoutesState;
 }

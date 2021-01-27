@@ -1,30 +1,28 @@
 import { app } from 'hyperapp'
 
-// Middlewares
+// Hyperstatic
 import hyperstatic from './utils/routing/hyperstatic'
 
 // Root view
-import App from '/components/core/App'
+import view from '/components/core/App'
 
 // Global styles
 import '/styles/base.css'
 
 const routes = {
-  '/': import('/pages/HomePage'),
-  '/secondary': import('/pages/SecondaryPage'),
-  '/counter': import('/pages/CounterPage'),
-  '/*': import('/pages/NotFoundPage')
+  '/': import('./pages/HomePage'),
+  '/secondary': import('./pages/SecondaryPage'),
+  '/counter': import('./pages/CounterPage'),
+  '/:splat*': import('./pages/NotFoundPage')
 }
 
 const options = {}
 
-// Initialize the app on the #app div
-hyperstatic(
-  app,
-  routes,
-  options
-)({
-  init: {},
-  view: App,
-  node: document.getElementById('app')
-})
+const init = {
+  a: 1,
+  b: 2
+}
+
+const node = document.getElementById('app')
+
+hyperstatic(app, routes, options)({ init, view, node })

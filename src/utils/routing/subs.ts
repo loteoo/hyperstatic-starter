@@ -11,3 +11,13 @@ export const onRouteChanged = fx((dispatch, action) => {
     removeEventListener('popstate', handleLocationChange)
   }
 })
+
+export const onRouteLoaded = fx((dispatch, action) => {
+  const handleRouteLoaded = (route) => {
+    dispatch([action, route])
+  }
+  addEventListener('routeload', handleRouteLoaded)
+  return () => {
+    removeEventListener('routeload', handleRouteLoaded)
+  }
+})
