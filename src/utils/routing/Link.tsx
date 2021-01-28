@@ -1,4 +1,5 @@
 import { h } from 'hyperapp'
+import { SetRouteState } from './actions'
 import { loadRoute } from './loadRoute'
 import { navigate } from './navigate'
 
@@ -7,22 +8,31 @@ const Link = ({ href, ...rest }, children) => ({ meta, getLocation }) => {
 
   const HandleClick = (state: State, ev) => {
     ev.preventDefault()
-
-    const actionArray = [state, navigate(href)]
-
     if (state.routes[route].status === 'iddle') {
-      actionArray.push(loadRoute({ route, meta }))
+      return [
+        SetRouteState(state, { route, update: { status: 'loading' } }),
+        loadRoute({ route, meta }),
+        navigate(href)
+      ]
     }
-
-    return actionArray
+    return [state, navigate(href)]
   }
-  // const { route } = getLocation(href)
-  // if (!meta[route].bundle) {
-  //   meta[route].promise.then((bundle) => {
-  //     meta[route].bundle = bundle
-  //   })
-  // }
-  return h('a', { href, onclick: HandleClick, ...rest }, children)
+
+  const HandleHover = (state: State, _ev) => {
+    if (state.routes[route].status === 'iddle') {
+      return [
+        SetRouteState(state, { route, update: { status: 'loading' } }),
+        loadRoute({ route, meta })
+      ]
+    }
+    return state
+  }
+
+  return h(
+    'a',
+    { href, onclick: HandleClick, onmouseover: HandleHover, ...rest },
+    children
+  )
 }
 
 export default Link

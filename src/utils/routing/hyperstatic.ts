@@ -50,21 +50,19 @@ const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, s
     }
   }
 
-  const LoadRoute = (state: State, route: string) => {
-    if (state.routes[route].status === 'iddle') {
-      return [
-        SetRouteState(state, { route, update: { status: 'loading' } }),
-        loadRoute({ route, meta })
-      ]
-    }
-    return state
-  }
+
 
   const LocationChange = ({ location: _, ...state }: State, pathname: string) => {
     const location = getLocation(pathname)
     const { route } = location;
-
-    return LoadRoute({ location, ...state }, route)
+    const nextState = { location, ...state }
+    if (nextState.routes[route].status === 'iddle') {
+      return [
+        SetRouteState(nextState, { route, update: { status: 'loading' } }),
+        loadRoute({ route, meta })
+      ]
+    }
+    return nextState
   }
 
 

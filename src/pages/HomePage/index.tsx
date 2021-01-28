@@ -2,10 +2,11 @@ import Input from '/components/ui/Input'
 import utils from '/styles/utils.css'
 
 // Initial state
-export const init = {
+export const init = (state) => ({
+  ...state,
   a: 1,
   b: 2
-}
+})
 
 // Actions
 const SetA = (state, ev) => ({ ...state, a: Number(ev.target.value) })

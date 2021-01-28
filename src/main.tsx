@@ -18,10 +18,7 @@ const routes = {
 
 const options = {}
 
-const init = {
-  a: 1,
-  b: 2
-}
+const init = {}
 
 const node = document.getElementById('app')
 

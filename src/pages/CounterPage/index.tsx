@@ -3,13 +3,14 @@ import Button from '/components/ui/Button'
 import utils from '/styles/utils.css'
 
 // Initial state
-export const init = {
+export const init = (state) => ({
+  ...state,
   counter: 0
-}
+})
 
 // Actions
-const Increment = state => ({ ...state, counter: state.counter + 1 })
-const Decrement = state => ({ ...state, counter: state.counter - 1 })
+const Increment = (state) => ({ ...state, counter: state.counter + 1 })
+const Decrement = (state) => ({ ...state, counter: state.counter - 1 })
 
 // View
 const CounterPage = (state) => (
