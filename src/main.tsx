@@ -4,7 +4,8 @@ import { app } from 'hyperapp'
 import hyperstatic from './utils/routing/hyperstatic'
 
 // Root view
-import view from '/components/core/App'
+import Loader from '/components/core/Loader'
+import App from '/components/core/App'
 
 // Global styles
 import '/styles/base.css'
@@ -16,10 +17,14 @@ const routes = {
   '/:splat*': import('./pages/NotFoundPage')
 }
 
-const options = {}
+// All of these are optional
+const options = {
+  baseUrl: '/', // Path prefix
+  loader: Loader // Custom loading indicator in case of slow networks
+}
 
-const init = {}
-
-const node = document.getElementById('app')
-
-hyperstatic(app, routes, options)({ init, view, node })
+hyperstatic(
+  app,
+  routes,
+  options
+)({ init: {}, view: App, node: document.getElementById('app') })

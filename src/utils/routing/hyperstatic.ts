@@ -1,18 +1,14 @@
 import { match } from "path-to-regexp";
-import { SetRouteState } from './actions';
+import { SetPathAsInitialized, SetRouteStatus } from './actions';
 import { loadRoute } from './loadRoute';
 import parseQueryString from './parseQueryString';
 import { provide } from './provide'
 import { onRouteChanged } from './subs'
 
-type Routes = Record<string, Promise<any>>;
-
-interface Options {
-  baseUrl?: string;
-}
 
 const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, subscriptions = (_s) => [], ...rest }) => {
 
+  // Internal values saved for each routes
   const meta = Object.keys(routes).reduce((obj, route) => {
     obj[route] = {
       matcher: match(route),
@@ -22,14 +18,7 @@ const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, s
     return obj
   }, {})
 
-  const routesState = Object.keys(routes).reduce<RoutesState>((obj, route) => {
-    obj[route] = {
-      status: 'iddle',
-      initialized: false
-    }
-    return obj
-  }, {})
-
+  // Utility function to parse data from paths
   const getLocation = (pathname: string): LocationState => {
     const [path, qs] = pathname.split('?')
     let matchedRoute;
@@ -50,28 +39,38 @@ const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, s
     }
   }
 
-
-
+  // Location changed action
   const LocationChange = ({ location: _, ...state }: State, pathname: string) => {
     const location = getLocation(pathname)
-    const { route } = location;
+    const { route, path } = location;
     const nextState = { location, ...state }
-    if (nextState.routes[route].status === 'iddle') {
+
+    // If current route isn't loaded, load it
+    if (!nextState.routes[route]?.status) {
       return [
-        SetRouteState(nextState, { route, update: { status: 'loading' } }),
-        loadRoute({ route, meta })
+        SetRouteStatus(nextState, { route, status: 'loading' }),
+        loadRoute({ route, path, meta, location })
       ]
     }
+
+    // If current path isn't initialized
+    if (
+      typeof meta[route].bundle?.init === 'function'
+      && !nextState.routes[route]?.initialized[path]
+    ) {
+      const stateWithPathInitialized = SetPathAsInitialized(nextState, { route, path })
+      const action = meta[route].bundle?.init(stateWithPathInitialized, location)
+      return action
+    }
+
     return nextState
   }
-
-
 
   const initialPath = window.location.pathname + window.location.search;
 
   return app({
-    init: LocationChange({ ...init, routes: routesState }, initialPath),
-    view: (state) => provide({ state, meta, getLocation }, view(state)),
+    init: LocationChange({ ...init, routes: {} }, initialPath),
+    view: (state) => provide({ state, meta, options, getLocation }, view(state)),
     subscriptions: (state) => [
       ...subscriptions(state),
       onRouteChanged(LocationChange)

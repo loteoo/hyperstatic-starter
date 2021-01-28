@@ -1,7 +1,7 @@
 import Input from '/components/ui/Input'
 import utils from '/styles/utils.css'
 
-// Initial state
+// Initialize state
 export const init = (state) => ({
   ...state,
   a: 1,

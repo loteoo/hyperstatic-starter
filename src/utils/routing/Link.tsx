@@ -1,36 +1,83 @@
 import { h } from 'hyperapp'
-import { SetRouteState } from './actions'
+import { SetPathAsInitialized, SetRouteStatus } from './actions'
 import { loadRoute } from './loadRoute'
 import { navigate } from './navigate'
 
 const Link = ({ href, ...rest }, children) => ({ meta, getLocation }) => {
-  const { route } = getLocation(href)
+  const location = getLocation(href)
+  const { route, path } = location
 
-  const HandleClick = (state: State, ev) => {
+  const RequestNavigation = (state: State, ev) => {
     ev.preventDefault()
-    if (state.routes[route].status === 'iddle') {
+    // If target route isn't loaded, load it
+    if (!state.routes[route]?.status) {
       return [
-        SetRouteState(state, { route, update: { status: 'loading' } }),
-        loadRoute({ route, meta }),
+        SetRouteStatus(state, { route, status: 'loading' }),
+        loadRoute({ route, path, meta, location }),
         navigate(href)
       ]
     }
+
+    // If current path isn't initialized
+    if (
+      typeof meta[route].bundle?.init === 'function' &&
+      !state.routes[route]?.initialized[path]
+    ) {
+      const stateWithPathInitialized = SetPathAsInitialized(state, {
+        route,
+        path
+      })
+      const action = meta[route].bundle?.init(
+        stateWithPathInitialized,
+        location
+      )
+      if (Array.isArray(action)) {
+        action.push(navigate(href))
+        return action
+      }
+      return [action, navigate(href)]
+    }
+
     return [state, navigate(href)]
   }
 
-  const HandleHover = (state: State, _ev) => {
-    if (state.routes[route].status === 'iddle') {
+  const PreloadPage = (state: State, _ev) => {
+    // If target route isn't loaded, load it
+    if (!state.routes[route]?.status) {
       return [
-        SetRouteState(state, { route, update: { status: 'loading' } }),
-        loadRoute({ route, meta })
+        SetRouteStatus(state, { route, status: 'loading' }),
+        loadRoute({ route, path, meta, location })
       ]
     }
+
+    // If current path isn't initialized
+    if (
+      typeof meta[route].bundle?.init === 'function' &&
+      !state.routes[route]?.initialized[path]
+    ) {
+      const stateWithPathInitialized = SetPathAsInitialized(state, {
+        route,
+        path
+      })
+      const action = meta[route].bundle?.init(
+        stateWithPathInitialized,
+        location
+      )
+      return action
+    }
+
     return state
   }
 
   return h(
     'a',
-    { href, onclick: HandleClick, onmouseover: HandleHover, ...rest },
+    {
+      href,
+      onclick: RequestNavigation,
+      onmouseover: PreloadPage,
+      onfocus: PreloadPage,
+      ...rest
+    },
     children
   )
 }

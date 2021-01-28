@@ -1,7 +1,7 @@
 import utils from '/styles/utils.css'
 import styles from './footer.css'
 
-const Footer = () => (
+const Footer = (state) => (
   <footer class={styles.footer}>
     <div class={[utils.container, styles.inner]}>
       <a
@@ -19,6 +19,9 @@ const Footer = () => (
         hyperapp
       </a>
     </div>
+    <pre>
+      <code>{`"state": ${JSON.stringify(state, null, 2)}`}</code>
+    </pre>
   </footer>
 )
 

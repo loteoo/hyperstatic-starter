@@ -2,7 +2,7 @@ import Button from '/components/ui/Button'
 
 import utils from '/styles/utils.css'
 
-// Initial state
+// Initialize state
 export const init = (state) => ({
   ...state,
   counter: 0
