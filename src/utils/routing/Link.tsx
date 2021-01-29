@@ -7,6 +7,12 @@ const Link = ({ href, ...rest }, children) => ({ meta, getLocation }) => {
   const location = getLocation(href)
   const { route, path } = location
 
+  // @ts-expect-error
+  if (window.registerPath) {
+    // @ts-expect-error
+    window.registerPath(path)
+  }
+
   const RequestNavigation = (state: State, ev) => {
     ev.preventDefault()
     // If target route isn't loaded, load it

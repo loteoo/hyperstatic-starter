@@ -19,9 +19,6 @@ const Footer = (state) => (
         hyperapp
       </a>
     </div>
-    <pre>
-      <code>{`"state": ${JSON.stringify(state, null, 2)}`}</code>
-    </pre>
   </footer>
 )
 

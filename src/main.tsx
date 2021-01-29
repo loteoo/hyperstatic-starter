@@ -1,14 +1,9 @@
-import { app } from 'hyperapp'
-
-// Hyperstatic
+// Hyperstatic runtime
 import hyperstatic from './utils/routing/hyperstatic'
 
 // Root view
 import Loader from '/components/core/Loader'
 import App from '/components/core/App'
-
-// Global styles
-import '/styles/base.css'
 
 const routes = {
   '/': import('./pages/HomePage'),
@@ -23,8 +18,10 @@ const options = {
   loader: Loader // Custom loading indicator in case of slow networks
 }
 
-hyperstatic(
-  app,
+hyperstatic({
   routes,
-  options
-)({ init: {}, view: App, node: document.getElementById('app') })
+  options,
+  init: {},
+  view: App,
+  node: document.getElementById('app')
+})

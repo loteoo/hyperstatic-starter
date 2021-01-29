@@ -1,3 +1,4 @@
+import { app } from 'hyperapp'
 import { match } from "path-to-regexp";
 import { SetPathAsInitialized, SetRouteStatus } from './actions';
 import { loadRoute } from './loadRoute';
@@ -5,8 +6,7 @@ import parseQueryString from './parseQueryString';
 import { provide } from './provide'
 import { onRouteChanged } from './subs'
 
-
-const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, subscriptions = (_s) => [], ...rest }) => {
+const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], ...rest }: Config) => {
 
   // Internal values saved for each routes
   const meta = Object.keys(routes).reduce((obj, route) => {
@@ -69,7 +69,7 @@ const hyperstatic = (app, routes: Routes, options?: Options) => ({ init, view, s
   const initialPath = window.location.pathname + window.location.search;
 
   return app({
-    init: LocationChange({ ...init, routes: {} }, initialPath),
+    init: LocationChange({ ...init, routes: {} } as State, initialPath),
     view: (state) => provide({ state, meta, options, getLocation }, view(state)),
     subscriptions: (state) => [
       ...subscriptions(state),
