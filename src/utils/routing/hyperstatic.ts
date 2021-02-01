@@ -1,4 +1,4 @@
-import { app } from 'hyperapp'
+import { app, h } from 'hyperapp'
 import { match } from "path-to-regexp";
 import { SetPathAsInitialized, SetRouteStatus } from './actions';
 import { loadRoute } from './loadRoute';
@@ -70,7 +70,7 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
 
   return app({
     init: LocationChange({ ...init, routes: {} } as State, initialPath),
-    view: (state) => provide({ state, meta, options, getLocation }, view(state)),
+    view: (state) => provide({ state, meta, options, getLocation }, h('div', { id: 'app' }, view(state))),
     subscriptions: (state) => [
       ...subscriptions(state),
       onRouteChanged(LocationChange)
