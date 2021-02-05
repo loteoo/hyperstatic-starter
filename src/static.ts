@@ -30,7 +30,7 @@ function delay(time) {
   });
 }
 
-const renderPages = async ({ port = 54321, distFolder = 'dist', entryPoint = '/', extraPages = [] }: StaticOptions) => {
+const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/', extraPages = [] }: StaticOptions) => {
   try {
 
     // Spin up a static server to use for prerendering with pupeteer
@@ -38,6 +38,7 @@ const renderPages = async ({ port = 54321, distFolder = 'dist', entryPoint = '/'
 
     const baseUrl = `http://localhost:${port}`
 
+    const staticCache = {}
 
     // Initial render queue
     const renderQueue = [
@@ -55,10 +56,14 @@ const renderPages = async ({ port = 54321, distFolder = 'dist', entryPoint = '/'
       }
     });
 
+    await page.exposeFunction('cacheData', (url: string, data: any) => {
+      staticCache[url] = data;
+    });
+
     // Load page
     await page.goto(`${baseUrl}${entryPoint}`);
 
-    // Render loop
+    // Pre-render loop
     for (let i = 0; i < renderQueue.length; i++) {
       const pagePath = renderQueue[i]
 
@@ -69,12 +74,13 @@ const renderPages = async ({ port = 54321, distFolder = 'dist', entryPoint = '/'
         // process.exit(1)
       })
 
+      // Navigate to the page client-side
       await page.evaluate((path) => {
         window.history.pushState(null, '', path)
         window.dispatchEvent(new CustomEvent("pushstate"))
       }, pagePath)
 
-      // await page.goto(`${baseUrl}${pagePath}`, { waitUntil: 'networkidle0' });
+      await delay(5000);
 
       const html = await page.content(); // serialized HTML of page DOM.
 
@@ -96,62 +102,54 @@ const renderPages = async ({ port = 54321, distFolder = 'dist', entryPoint = '/'
       console.log(`Page created: ${pageFileAbsolutePath}`)
     }
 
-    // @ts-expect-error
-    const staticData = await page.evaluate(() => window.staticData)
-
-    // Wait for requests to finish
-    await delay(3000);
 
     await browser.close();
 
     console.log('Pages rendered!')
 
+
+
+
+
+    console.log('Saving static data...')
+
+    const fetchUrls = Object.keys(staticCache)
+
+    let newFetchUrls = []
+
+    for (let i = 0; i < fetchUrls.length; i++) {
+      const url = fetchUrls[i]
+      const data = staticCache[url]
+      const fileName = crypto.createHash('md5').update(url).digest('hex') + '.json'
+      const filePath = '/data/' + fileName
+
+      newFetchUrls.push(filePath)
+
+      const dataAbsolutePath = path.join(distFolder, filePath)
+      await fse.outputFile(dataAbsolutePath, JSON.stringify(data))
+      console.log(`Data saved: ${dataAbsolutePath}`)
+    }
+
+    console.log('Updating bundles...')
+
+    const results = await replace({
+      files: distFolder + '/*.js',
+      from: fetchUrls,
+      to: newFetchUrls,
+      countMatches: true
+    })
+    console.log('Bundles updated! Results: ')
+    results.forEach(result => {
+      if (result.hasChanged) {
+        console.log(result)
+      }
+    })
+
+
   } catch (error) {
     console.error(error)
     // process.exit(1)
   }
-
-
-  // console.log('Saving static data...')
-
-  // const fetchUrls = Object.keys(staticData)
-
-  // let newFetchUrls = []
-
-  // for (let i = 0; i < fetchUrls.length; i++) {
-  //   const url = fetchUrls[i]
-  //   const data = staticData[url]
-  //   const fileName = crypto.createHash('md5').update(url).digest('hex') + '.json'
-  //   const filePath = '/data/' + fileName
-
-  //   newFetchUrls.push(filePath)
-
-  //   try {
-  //     const dataAbsolutePath = path.join(distFolder, filePath)
-  //     await fse.outputFile(dataAbsolutePath, JSON.stringify(data))
-  //     console.log(`Data saved: ${dataAbsolutePath}`)
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
-
-  // console.log('Updating bundles...')
-  // try {
-  //   const results = await replace({
-  //     files: distFolder + '/*.{js,jsx}',
-  //     from: fetchUrls,
-  //     to: newFetchUrls,
-  //     countMatches: true
-  //   })
-  //   console.log('Bundles updated! Results: ')
-  //   results.forEach(result => {
-  //     if (result.hasChanged) {
-  //       console.log(result)
-  //     }
-  //   })
-  // } catch (error) {
-  //   console.error('Error occurred:', error)
-  // }
 
   console.log('Rendering complete! 🎉')
 

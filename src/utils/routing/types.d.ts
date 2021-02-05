@@ -41,4 +41,5 @@ interface State {
   options: OptionsState;
   location: LocationState;
   routes: RoutesState;
+  [x: string]: any;
 }

@@ -10,6 +10,7 @@ const Header = () => (
       <Logo />
       <Link href="/secondary">Secondary page</Link>
       <Link href="/counter">Counter page</Link>
+      <Link href="/characters">Character list</Link>
     </div>
   </header>
 )

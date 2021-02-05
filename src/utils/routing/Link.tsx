@@ -7,6 +7,22 @@ const Link = ({ href, ...rest }, children) => ({ meta, getLocation }) => {
   const location = getLocation(href)
   const { route, path } = location
 
+  if (!route) {
+    const DumbNavigate = (state: State, ev) => {
+      ev.preventDefault()
+      return [state, navigate(href)]
+    }
+    return h(
+      'a',
+      {
+        href,
+        onclick: DumbNavigate,
+        ...rest
+      },
+      children
+    )
+  }
+
   // @ts-expect-error
   if (window.registerPath) {
     // @ts-expect-error

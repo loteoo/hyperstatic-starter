@@ -9,6 +9,8 @@ const routes = {
   '/': import('./pages/HomePage'),
   '/secondary': import('./pages/SecondaryPage'),
   '/counter': import('./pages/CounterPage'),
+  '/characters': import('./pages/CharacterList'),
+  '/characters/:id': import('./pages/CharacterDetails'),
   '/:splat*': import('./pages/NotFoundPage')
 }
 

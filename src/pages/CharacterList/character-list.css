@@ -1,0 +1,17 @@
+.card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--divider-color);
+  border-radius: 0.25rem;
+  text-decoration: none;
+  &:hover {
+    background-color: var(--alt-background-color);
+  }
+}
+
+.cardTitle {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
