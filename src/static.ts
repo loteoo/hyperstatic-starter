@@ -130,12 +130,21 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       console.log(`Data saved: ${dataAbsolutePath}`)
     }
 
+    const cacheKeys = fetchUrls.reduce((obj, curr, i) => ({
+      ...obj,
+      [curr]: newFetchUrls[i]
+    }), {})
+
     console.log('Updating bundles...')
 
+    const inlineData = {
+      cache: cacheKeys,
+    }
+
     const results = await replace({
-      files: distFolder + '/*.js',
-      from: fetchUrls,
-      to: newFetchUrls,
+      files: distFolder + '/**/*.html',
+      from: '</body>',
+      to: `<script>window.HYPERSTATIC_DATA = ${JSON.stringify(inlineData)}</script></body>`,
       countMatches: true
     })
     console.log('Bundles updated! Results: ')

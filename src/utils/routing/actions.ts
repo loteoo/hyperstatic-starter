@@ -1,7 +1,10 @@
+import preload from "./preload"
+
 interface SetRouteStatusArgs {
   route: string
   status: RouteStatus;
 }
+
 export const SetRouteStatus = (state: State, { route, status }: SetRouteStatusArgs): State => ({
   ...state,
   routes: {
@@ -17,6 +20,7 @@ interface SetPathAsInitializedArgs {
   route: string
   path: string
 }
+
 export const SetPathAsInitialized = (state: State, { route, path }: SetPathAsInitializedArgs): State => ({
   ...state,
   routes: {
@@ -31,3 +35,7 @@ export const SetPathAsInitialized = (state: State, { route, path }: SetPathAsIni
   }
 })
 
+// export const Preload = (state: State, { url, action, error }) => [
+//   state,
+//   preload({ cache: state.cache, url, action, error })
+// ]

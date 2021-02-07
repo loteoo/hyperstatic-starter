@@ -1,7 +1,7 @@
 import Button from '/components/ui/Button'
 import utils from '/styles/utils.css'
 import Link from '/utils/routing/Link'
-import preload from '/utils/preload'
+import preload from '/utils/routing/preload'
 
 import styles from './character-list.css'
 
@@ -17,8 +17,10 @@ export const init = (state) => [
     characterlist: []
   },
   preload({
-    url: 'https://rickandmortyapi.com/api/character',
-    action: HandleCharacters
+    // url: 'https://rickandmortyapi.com/api/character',
+    url: '/characters.json',
+    action: HandleCharacters,
+    error: (state) => state
   })
 ]
 
@@ -26,9 +28,10 @@ export const init = (state) => [
 const LoadMore = (state) => [
   state,
   preload({
-    url: `https://rickandmortyapi.com/api/character?page=${
-      Math.floor(state.characterlist.length / 20) + 1
-    }`,
+    // url: `https://rickandmortyapi.com/api/character?page=${
+    //   Math.floor(state.characterlist.length / 20) + 1
+    // }`,
+    url: '/characters.json',
     action: HandleCharacters
   })
 ]
@@ -43,7 +46,7 @@ const CharacterList = (state) => (
         <Link class={styles.card} href={`/characters/${character.id}`}>
           <h4 class={styles.cardTitle}>{character.name}</h4>
           <small>
-            {character.species} - {character.status}
+            {/* {character.species} - {character.status} */}
           </small>
         </Link>
       ))}

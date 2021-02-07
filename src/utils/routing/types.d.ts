@@ -37,9 +37,12 @@ interface RouteState {
 
 type RoutesState = Record<string, RouteState>
 
+type CacheState = Record<string, string>
+
 interface State {
   options: OptionsState;
   location: LocationState;
   routes: RoutesState;
+  cache: CacheState;
   [x: string]: any;
 }

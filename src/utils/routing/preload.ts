@@ -1,7 +1,12 @@
-import fx from './fx'
+import fx from '../fx'
 
-const preload = fx((dispatch, props) =>
-  fetch(props.url)
+const preload = fx((dispatch, props) => {
+  // @ts-ignore
+  const cachedUrl = window?.HYPERSTATIC_DATA?.cache[props.url]
+  
+  const url = cachedUrl ?? props.url;
+
+  return fetch(url)
     .then(response => response.json())
     .then(data => {
       // @ts-expect-error
@@ -12,6 +17,6 @@ const preload = fx((dispatch, props) =>
       dispatch(props.action, data)
     })
     .catch(err => dispatch(props.error, err))
-)
+})
 
 export default preload

@@ -1,5 +1,5 @@
 import utils from '/styles/utils.css'
-import preload from '/utils/preload'
+import preload from '/utils/routing/preload'
 
 import styles from './character-details.css'
 
@@ -18,8 +18,10 @@ export const init = (state: State, location: LocationState) => [
     characters: state.characters ?? {}
   },
   preload({
-    url: `https://rickandmortyapi.com/api/character/${location.params.id}`,
-    action: HandleCharacter
+    // url: `https://rickandmortyapi.com/api/character/${location.params.id}`,
+    url: `/characters/${location.params.id}.json`,
+    action: HandleCharacter,
+    error: (state) => state
   })
 ]
 
@@ -47,7 +49,7 @@ const CharacterDetails = (state) => {
         />
         <div>
           <div class={styles.infoGrid}>
-            <span>Status:</span>
+            {/* <span>Status:</span>
             <span>{character.status}</span>
             <span>Species:</span>
             <span>{character.species}</span>
@@ -56,7 +58,7 @@ const CharacterDetails = (state) => {
             <span>Origin:</span>
             <span>{character.origin.name}</span>
             <span>Location:</span>
-            <span>{character.location.name}</span>
+            <span>{character.location.name}</span> */}
           </div>
         </div>
       </div>
