@@ -1,7 +1,7 @@
 import { h, text } from 'hyperapp'
 
 const Router = () => ({ state, meta, options }) => {
-  const { route } = state.location
+  const { route, path } = state.location
   const view = meta[route]?.bundle?.default;
 
   if (view) {

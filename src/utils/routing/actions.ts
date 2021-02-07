@@ -1,41 +1,38 @@
 import preload from "./preload"
 
-interface SetRouteStatusArgs {
-  route: string
-  status: RouteStatus;
-}
-
-export const SetRouteStatus = (state: State, { route, status }: SetRouteStatusArgs): State => ({
-  ...state,
-  routes: {
-    ...state.routes,
-    [route]: {
-      status,
-      initialized: state.routes[route]?.initialized ?? {}
-    }
-  }
-})
-
-interface SetPathAsInitializedArgs {
-  route: string
+interface SetPathStatusArgs {
   path: string
+  status: PathStatus;
 }
 
-export const SetPathAsInitialized = (state: State, { route, path }: SetPathAsInitializedArgs): State => ({
+export const SetPathStatus = (state: State, { path, status }: SetPathStatusArgs): State => ({
   ...state,
-  routes: {
-    ...state.routes,
-    [route]: {
-      ...state.routes[route],
-      initialized: {
-        ...state.routes[route].initialized,
-        [path]: true
-      }
+  paths: {
+    ...state.paths,
+    [path]: {
+      ...state.paths[path],
+      status
     }
   }
 })
 
-// export const Preload = (state: State, { url, action, error }) => [
-//   state,
-//   preload({ cache: state.cache, url, action, error })
-// ]
+interface AddPathCacheStatusArgs {
+  path: string
+  cache: string;
+}
+
+export const AddPathCacheStatus = (state: State, { path, cache }: AddPathCacheStatusArgs): State => ({
+  ...state,
+  paths: {
+    ...state.paths,
+    [path]: {
+      ...state.paths[path],
+      loadedCaches: state.paths[path]?.loadedCaches ? state.paths[path].loadedCaches.concat(cache) : [cache]
+    }
+  }
+})
+
+export const Preload = (state: State, { url, action, error }) => [
+  state,
+  preload({ location: state.location, url, action, error })
+]

@@ -38,7 +38,8 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
     const baseUrl = `http://localhost:${port}`
 
-    const staticCache = {}
+    const cache = {}
+    const cacheDeps = {}
 
     // Initial render queue
     const renderQueue = [
@@ -56,8 +57,11 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       }
     });
 
-    await page.exposeFunction('cacheData', (url: string, data: any) => {
-      staticCache[url] = data;
+    await page.exposeFunction('cacheData', (url: string, data: any, path: string) => {
+      cache[url] = data;
+      if (path) {
+        cacheDeps[path] = cacheDeps[path] ? cacheDeps[path].concat(url) : [url];
+      }
     });
 
     // Load page
@@ -85,6 +89,7 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       const html = await page.content(); // serialized HTML of page DOM.
 
       // Invalid pages return empty strings as HTML. Do not save those.
+      // TODO: remove this check if possible
       if (!html) {
         console.log('Empty page: ' + pagePath)
         continue
@@ -113,13 +118,13 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
     console.log('Saving static data...')
 
-    const fetchUrls = Object.keys(staticCache)
+    const fetchUrls = Object.keys(cache)
 
     let newFetchUrls = []
 
     for (let i = 0; i < fetchUrls.length; i++) {
       const url = fetchUrls[i]
-      const data = staticCache[url]
+      const data = cache[url]
       const fileName = crypto.createHash('md5').update(url).digest('hex') + '.json'
       const filePath = '/data/' + fileName
 
@@ -139,6 +144,7 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
     const inlineData = {
       cache: cacheKeys,
+      cacheDeps
     }
 
     const results = await replace({

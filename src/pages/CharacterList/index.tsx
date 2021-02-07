@@ -32,7 +32,8 @@ const LoadMore = (state) => [
     //   Math.floor(state.characterlist.length / 20) + 1
     // }`,
     url: '/characters.json',
-    action: HandleCharacters
+    action: HandleCharacters,
+    error: (state) => state
   })
 ]
 
@@ -45,9 +46,7 @@ const CharacterList = (state) => (
       {state.characterlist.map((character) => (
         <Link class={styles.card} href={`/characters/${character.id}`}>
           <h4 class={styles.cardTitle}>{character.name}</h4>
-          <small>
-            {/* {character.species} - {character.status} */}
-          </small>
+          <small>{/* {character.species} - {character.status} */}</small>
         </Link>
       ))}
     </div>

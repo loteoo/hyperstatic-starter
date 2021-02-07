@@ -28,21 +28,16 @@ interface LocationState {
   query: any;
 }
 
-type RouteStatus = 'iddle' | 'loading' | 'ready' | 'error';
+type PathStatus = 'iddle' | 'loading' | 'fetching' | 'ready' | 'error';
 
-interface RouteState {
-  status: RouteStatus;
-  initialized: Record<string, boolean>;
+interface PathsState {
+  status: PathStatus;
+  loadedCaches: string[];
 }
-
-type RoutesState = Record<string, RouteState>
-
-type CacheState = Record<string, string>
 
 interface State {
   options: OptionsState;
   location: LocationState;
-  routes: RoutesState;
-  cache: CacheState;
+  paths: Record<string, PathsState>;
   [x: string]: any;
 }
