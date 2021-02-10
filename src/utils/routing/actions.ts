@@ -1,4 +1,3 @@
-import preload from "./preload"
 
 interface SetPathStatusArgs {
   path: string
@@ -16,23 +15,27 @@ export const SetPathStatus = (state: State, { path, status }: SetPathStatusArgs)
   }
 })
 
-interface AddPathCacheStatusArgs {
-  path: string
-  cache: string;
-}
+export const InitializePath = (state: State, { location, bundle }) => {
+  const { path } = location;
 
-export const AddPathCacheStatus = (state: State, { path, cache }: AddPathCacheStatusArgs): State => ({
-  ...state,
-  paths: {
-    ...state.paths,
-    [path]: {
-      ...state.paths[path],
-      loadedCaches: state.paths[path]?.loadedCaches ? state.paths[path].loadedCaches.concat(cache) : [cache]
-    }
+  // If current path is already initiated, do nothing
+  if (state.paths[path]?.status === 'ready') {
+    return state;
   }
-})
 
-export const Preload = (state: State, { url, action, error }) => [
-  state,
-  preload({ location: state.location, url, action, error })
-]
+  // If current path doesn't have an "init" to run
+  if (typeof bundle?.init !== 'function') {
+
+    // Set as ready
+    return SetPathStatus(state, { path, status: 'ready' })
+  }
+
+
+  // Compute next state or action tuple using the provided "init" action
+  const action = bundle?.init(
+    SetPathStatus(state, { path, status: 'ready' }),
+    location
+  )
+
+  return action
+}

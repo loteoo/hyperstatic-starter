@@ -1,5 +1,5 @@
 import utils from '/styles/utils.css'
-import preload from '/utils/routing/preload'
+import loadStatic from '/utils/routing/loadStatic'
 
 import styles from './character-details.css'
 
@@ -17,9 +17,13 @@ export const init = (state: State, location: LocationState) => [
     ...state,
     characters: state.characters ?? {}
   },
-  preload({
-    // url: `https://rickandmortyapi.com/api/character/${location.params.id}`,
-    url: `/characters/${location.params.id}.json`,
+  loadStatic({
+    key: location.path,
+    loader: async () => {
+      const response = await fetch(`/characters/${location.params.id}.json`)
+      const data = await response.json()
+      return data
+    },
     action: HandleCharacter,
     error: (state) => state
   })

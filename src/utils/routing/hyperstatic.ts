@@ -1,6 +1,6 @@
 import { app, h } from 'hyperapp'
 import { match } from "path-to-regexp";
-import { SetPathStatus } from './actions';
+import { InitializePath, SetPathStatus } from './actions';
 import { loadRoute } from './loadRoute';
 import parseQueryString from './parseQueryString';
 import { provide } from './provide'
@@ -47,43 +47,17 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
     const location = getLocation(href)
     const { route, path } = location
 
-    // If target route isn't loaded, load it
-    if (!meta[route].bundle) {
+    const bundle = meta[route].bundle;
+
+    // If target route's bundle isn't loaded, load it
+    if (!bundle) {
       return [
         SetPathStatus(state, { path, status: 'loading' }),
         loadRoute({ route, path, meta, location })
       ]
     }
 
-    // If current path isn't initialized
-    if (
-      typeof meta[route].bundle?.init === 'function' &&
-      (!state.paths[path] || (state.paths[path].status !== 'fetching' && state.paths[path].status !== 'ready'))
-    ) {
-
-      console.log('initiating path ' + path)
-
-
-      const action = meta[route].bundle?.init(
-        state,
-        location
-      )
-
-
-      if (Array.isArray(action)) {
-
-        // @ts-expect-error
-        const cacheDeps = window?.HYPERSTATIC_DATA?.cacheDeps[path]
-        if (cacheDeps && action[0].paths[path].loadedCaches.length !== cacheDeps.length) {
-          action[0] = SetPathStatus(action[0], { path, status: 'fetching' })
-        }
-        return action
-      }
-
-      return SetPathStatus(action, { path, status: 'ready' })
-    }
-
-    return state
+    return InitializePath(state, { location, bundle })
   }
 
   // Location changed action

@@ -32,7 +32,6 @@ type PathStatus = 'iddle' | 'loading' | 'fetching' | 'ready' | 'error';
 
 interface PathsState {
   status: PathStatus;
-  loadedCaches: string[];
 }
 
 interface State {

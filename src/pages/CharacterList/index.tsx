@@ -1,7 +1,6 @@
-import Button from '/components/ui/Button'
 import utils from '/styles/utils.css'
 import Link from '/utils/routing/Link'
-import preload from '/utils/routing/preload'
+import loadStatic from '/utils/routing/loadStatic'
 
 import styles from './character-list.css'
 
@@ -11,27 +10,18 @@ const HandleCharacters = (state, data) => ({
 })
 
 // Fetch characters
-export const init = (state) => [
+export const init = (state: State, location: LocationState) => [
   {
     ...state,
     characterlist: []
   },
-  preload({
-    // url: 'https://rickandmortyapi.com/api/character',
-    url: '/characters.json',
-    action: HandleCharacters,
-    error: (state) => state
-  })
-]
-
-// Fetch more characters
-const LoadMore = (state) => [
-  state,
-  preload({
-    // url: `https://rickandmortyapi.com/api/character?page=${
-    //   Math.floor(state.characterlist.length / 20) + 1
-    // }`,
-    url: '/characters.json',
+  loadStatic({
+    key: location.path,
+    loader: async () => {
+      const response = await fetch(`/characters.json`)
+      const data = await response.json()
+      return data
+    },
     action: HandleCharacters,
     error: (state) => state
   })
@@ -50,7 +40,6 @@ const CharacterList = (state) => (
         </Link>
       ))}
     </div>
-    <Button onclick={LoadMore}>Load more</Button>
   </div>
 )
 

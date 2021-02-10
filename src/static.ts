@@ -39,7 +39,6 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
     const baseUrl = `http://localhost:${port}`
 
     const cache = {}
-    const cacheDeps = {}
 
     // Initial render queue
     const renderQueue = [
@@ -57,11 +56,8 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       }
     });
 
-    await page.exposeFunction('cacheData', (url: string, data: any, path: string) => {
-      cache[url] = data;
-      if (path) {
-        cacheDeps[path] = cacheDeps[path] ? cacheDeps[path].concat(url) : [url];
-      }
+    await page.exposeFunction('cacheData', (key: string, data: any) => {
+      cache[key] = data;
     });
 
     // Load page
@@ -118,33 +114,32 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
     console.log('Saving static data...')
 
-    const fetchUrls = Object.keys(cache)
+    const cacheKeys = Object.keys(cache)
 
-    let newFetchUrls = []
+    let cacheUrlArray = []
 
-    for (let i = 0; i < fetchUrls.length; i++) {
-      const url = fetchUrls[i]
-      const data = cache[url]
-      const fileName = crypto.createHash('md5').update(url).digest('hex') + '.json'
+    for (let i = 0; i < cacheKeys.length; i++) {
+      const key = cacheKeys[i]
+      const data = cache[key]
+      const fileName = crypto.createHash('md5').update(key).digest('hex') + '.json'
       const filePath = '/data/' + fileName
 
-      newFetchUrls.push(filePath)
+      cacheUrlArray.push(filePath)
 
       const dataAbsolutePath = path.join(distFolder, filePath)
       await fse.outputFile(dataAbsolutePath, JSON.stringify(data))
       console.log(`Data saved: ${dataAbsolutePath}`)
     }
 
-    const cacheKeys = fetchUrls.reduce((obj, curr, i) => ({
+    const cacheFetchUrls = cacheKeys.reduce((obj, curr, i) => ({
       ...obj,
-      [curr]: newFetchUrls[i]
+      [curr]: cacheUrlArray[i]
     }), {})
 
     console.log('Updating bundles...')
 
     const inlineData = {
-      cache: cacheKeys,
-      cacheDeps
+      cache: cacheFetchUrls,
     }
 
     const results = await replace({
