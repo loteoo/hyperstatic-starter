@@ -56,8 +56,8 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       }
     });
 
-    await page.exposeFunction('cacheData', (key: string, data: any) => {
-      cache[key] = data;
+    await page.exposeFunction('cacheData', (path: string, data: any) => {
+      cache[path] = data;
     });
 
     // Load page
@@ -114,14 +114,14 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
     console.log('Saving static data...')
 
-    const cacheKeys = Object.keys(cache)
+    const cachePaths = Object.keys(cache)
 
     let cacheUrlArray = []
 
-    for (let i = 0; i < cacheKeys.length; i++) {
-      const key = cacheKeys[i]
-      const data = cache[key]
-      const fileName = crypto.createHash('md5').update(key).digest('hex') + '.json'
+    for (let i = 0; i < cachePaths.length; i++) {
+      const path = cachePaths[i]
+      const data = cache[path]
+      const fileName = crypto.createHash('md5').update(path).digest('hex') + '.json'
       const filePath = '/data/' + fileName
 
       cacheUrlArray.push(filePath)
@@ -131,7 +131,7 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       console.log(`Data saved: ${dataAbsolutePath}`)
     }
 
-    const cacheFetchUrls = cacheKeys.reduce((obj, curr, i) => ({
+    const cacheFetchUrls = cachePaths.reduce((obj, curr, i) => ({
       ...obj,
       [curr]: cacheUrlArray[i]
     }), {})

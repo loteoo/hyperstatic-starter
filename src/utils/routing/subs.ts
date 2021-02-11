@@ -32,8 +32,6 @@ let observer = new IntersectionObserver(
 
 const subRunner = (dispatch, action) => {
   const handleLinkEnteredViewport = (ev) => {
-    console.log('handleLinkEnteredViewport', ev.detail)
-
     dispatch(action, ev.detail)
   }
   addEventListener('linkenteredviewport', handleLinkEnteredViewport)
@@ -50,8 +48,9 @@ export const onLinkEnteredViewPort = ({
   // After each render
   setTimeout(() => {
     requestAnimationFrame(() => {
+
+      // TODO: research if having the same element observed many times is an issue and how to avoid this
       document.querySelectorAll(selector).forEach(link => {
-        console.log('Observing', link.dataset.path)
         observer.observe(link)
       });
     })

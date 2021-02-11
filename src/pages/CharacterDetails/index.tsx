@@ -18,8 +18,8 @@ export const init = (state: State, location: LocationState) => [
     characters: state.characters ?? {}
   },
   loadStatic({
-    key: location.path,
     loader: async () => {
+      // const response = await fetch(`/characters/${location.params.id}.json`)
       const response = await fetch(
         `https://rickandmortyapi.com/api/character/${location.params.id}`
       )

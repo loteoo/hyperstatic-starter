@@ -1,10 +1,11 @@
 import fx from '../fx'
+import { SetPathStatus } from './actions'
 
-const loadStatic = fx(async (dispatch, { key, loader, action, error }) => {
+const loadStaticRunner = async (dispatch, { path, loader, action, error }) => {
   try {
 
     // @ts-ignore
-    const cachedUrl = window?.HYPERSTATIC_DATA?.cache[key]
+    const cachedUrl = window?.HYPERSTATIC_DATA?.cache[path]
 
     const promise = cachedUrl
       ? fetch(cachedUrl).then(res => res.json())
@@ -15,15 +16,17 @@ const loadStatic = fx(async (dispatch, { key, loader, action, error }) => {
     // @ts-expect-error
     if (window.cacheData) {
       // @ts-expect-error
-      window.cacheData(key, data)
+      window.cacheData(path, data)
     }
 
-    dispatch(action, data)
+    dispatch((state: State) => action(SetPathStatus(state, { path, status: 'ready' }), data))
 
   } catch (err) {
     console.error(err)
     dispatch(error, err)
   }
-})
+}
+
+const loadStatic = fx(loadStaticRunner)
 
 export default loadStatic

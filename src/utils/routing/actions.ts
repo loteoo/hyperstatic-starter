@@ -33,9 +33,28 @@ export const InitializePath = (state: State, { location, bundle }) => {
 
   // Compute next state or action tuple using the provided "init" action
   const action = bundle?.init(
-    SetPathStatus(state, { path, status: 'ready' }),
+    state,
     location
   )
+
+  // If has init has side-effects
+  if (Array.isArray(action)) {
+
+    // Get only the "loadStatic" effect tuples
+    const loadEffects = action.slice(1).filter((fx => fx[0].name === 'loadStaticRunner'))
+
+    // If this page has data requirements
+    if (loadEffects.length > 0) {
+
+      // Set path as fetching
+      action[0] = SetPathStatus(action[0], { path, status: 'fetching' })
+
+      // Set the path for the effect
+      loadEffects.forEach(fx => fx[1].path = path)
+    }
+
+    return action
+  }
 
   return action
 }

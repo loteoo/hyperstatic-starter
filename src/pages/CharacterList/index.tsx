@@ -10,15 +10,15 @@ const HandleCharacters = (state, data) => ({
 })
 
 // Fetch characters
-export const init = (state: State, location: LocationState) => [
+export const init = (state: State) => [
   {
     ...state,
     characterlist: []
   },
   loadStatic({
-    key: location.path,
     loader: async () => {
       const response = await fetch(`https://rickandmortyapi.com/api/character`)
+      // const response = await fetch(`/characters.json`)
       const data = await response.json()
       return data
     },
