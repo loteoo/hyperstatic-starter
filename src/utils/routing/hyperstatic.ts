@@ -4,7 +4,7 @@ import { InitializePath, SetPathStatus } from './actions';
 import { loadRoute } from './loadRoute';
 import parseQueryString from './parseQueryString';
 import { provide } from './provide'
-import { onRouteChanged } from './subs'
+import { onLinkEnteredViewPort, onRouteChanged } from './subs'
 
 const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], ...rest }: Config) => {
 
@@ -74,7 +74,11 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
     view: (state) => provide({ state, meta, options, getLocation, PreloadPage }, h('div', { id: 'app' }, view(state))),
     subscriptions: (state) => [
       ...subscriptions(state),
-      onRouteChanged(LocationChanged)
+      onRouteChanged(LocationChanged),
+      onLinkEnteredViewPort({
+        selector: 'a[data-status=iddle]',
+        action: PreloadPage
+      })
     ],
     ...rest
   })

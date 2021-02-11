@@ -5,7 +5,7 @@ import Footer from '/components/core/Footer'
 import '/styles/base.css'
 
 const App = (state) => {
-  console.log(state)
+  console.log('state', state)
   return (
     <main>
       <Header />

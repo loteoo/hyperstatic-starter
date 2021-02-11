@@ -12,12 +12,55 @@ export const onRouteChanged = fx((dispatch, action) => {
   }
 })
 
-export const onRouteLoaded = fx((dispatch, action) => {
-  const handleRouteLoaded = (route) => {
-    dispatch([action, route])
+
+
+let observer = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // @ts-expect-error
+        const event = new CustomEvent('linkenteredviewport', { detail: entry.target.dataset.path });
+        dispatchEvent(event)
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.5
   }
-  addEventListener('routeload', handleRouteLoaded)
+);
+
+const subRunner = (dispatch, action) => {
+  const handleLinkEnteredViewport = (ev) => {
+    console.log('handleLinkEnteredViewport', ev.detail)
+
+    dispatch(action, ev.detail)
+  }
+  addEventListener('linkenteredviewport', handleLinkEnteredViewport)
   return () => {
-    removeEventListener('routeload', handleRouteLoaded)
+    removeEventListener('linkenteredviewport', handleLinkEnteredViewport)
   }
-})
+}
+
+export const onLinkEnteredViewPort = ({
+  selector,
+  action
+}) => {
+
+  // After each render
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll(selector).forEach(link => {
+        console.log('Observing', link.dataset.path)
+        observer.observe(link)
+      });
+    })
+  });
+
+  return [
+    subRunner,
+    action
+  ]
+}
+
+

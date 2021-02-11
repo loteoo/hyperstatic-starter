@@ -18,7 +18,7 @@ export const init = (state: State, location: LocationState) => [
   loadStatic({
     key: location.path,
     loader: async () => {
-      const response = await fetch(`/characters.json`)
+      const response = await fetch(`https://rickandmortyapi.com/api/character`)
       const data = await response.json()
       return data
     },
@@ -35,8 +35,14 @@ const CharacterList = (state) => (
     <div class={utils.grid}>
       {state.characterlist.map((character) => (
         <Link class={styles.card} href={`/characters/${character.id}`}>
-          <h4 class={styles.cardTitle}>{character.name}</h4>
-          <small>{/* {character.species} - {character.status} */}</small>
+          {({ status }) => (
+            <span>
+              <h4 class={styles.cardTitle}>{character.name}</h4>
+              <small>
+                {character.species} - {character.status} - {status}
+              </small>
+            </span>
+          )}
         </Link>
       ))}
     </div>

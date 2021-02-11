@@ -8,12 +8,13 @@ const Link = ({ href, ...rest }, children) => ({
 }) => {
   const location = getLocation(href)
   const { route, path } = location
+  const status = state.paths[path]?.status ?? 'iddle'
 
   const renderChildren = (child) => {
     if (typeof child === 'function') {
       const childNode = child({
         ...location,
-        status: state.paths[path]?.status ?? 'iddle'
+        status
       })
       if (typeof childNode === 'object' && 'node' in childNode) {
         return childNode
@@ -69,6 +70,8 @@ const Link = ({ href, ...rest }, children) => ({
       onclick: RequestNavigation,
       onmouseover: PreloadPageHandler,
       onfocus: PreloadPageHandler,
+      'data-path': path,
+      'data-status': status,
       ...rest
     },
     renderChildren(children)
