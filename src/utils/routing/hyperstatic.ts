@@ -66,8 +66,14 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
 
   const initialPath = window.location.pathname + window.location.search;
 
+  const initialState = {
+    ...init,
+    paths: {},
+    fastClicks: Boolean(options.fastClicks)
+  } as State;
+
   return app({
-    init: LocationChanged({ ...init, paths: {} } as State, initialPath),
+    init: LocationChanged(initialState, initialPath),
     view: (state) => provide(
       { state, meta, options, getLocation, PreloadPage },
       h('div', { id: 'app' }, view(state))

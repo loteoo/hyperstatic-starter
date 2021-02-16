@@ -17,10 +17,6 @@ interface Options {
   fastClicks?: boolean
 }
 
-interface OptionsState {
-
-}
-
 interface LocationState {
   route?: string;
   path: string;
@@ -31,8 +27,8 @@ interface LocationState {
 type PathStatus = 'iddle' | 'loading' | 'fetching' | 'ready' | 'error';
 
 interface State {
-  options: OptionsState;
   location: LocationState;
   paths: Record<string, PathStatus>;
+  fastClicks: boolean;
   [x: string]: any;
 }

@@ -1,6 +1,11 @@
 import { h, text } from 'hyperapp'
 import { navigate } from './navigate'
 
+const PreventDefault = (state: State, ev) => {
+  ev.preventDefault()
+  return state
+}
+
 const Link = ({ href, ...rest }, children) => ({
   state,
   getLocation,
@@ -9,6 +14,8 @@ const Link = ({ href, ...rest }, children) => ({
   const location = getLocation(href)
   const { route, path } = location
   const status = state.paths[path] ?? 'iddle'
+
+  const navigateEventName = state.fastClicks ? 'onmousedown' : 'onclick'
 
   const renderChildren = (child) => {
     if (typeof child === 'function') {
@@ -36,7 +43,8 @@ const Link = ({ href, ...rest }, children) => ({
       'a',
       {
         href,
-        onclick: DumbNavigate,
+        onclick: PreventDefault,
+        [navigateEventName]: DumbNavigate,
         ...rest
       },
       renderChildren(children)
@@ -67,7 +75,8 @@ const Link = ({ href, ...rest }, children) => ({
     'a',
     {
       href,
-      onclick: RequestNavigation,
+      onclick: PreventDefault,
+      [navigateEventName]: RequestNavigation,
       onmouseover: PreloadPageHandler,
       onfocus: PreloadPageHandler,
       'data-path': path,
