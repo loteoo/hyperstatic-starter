@@ -20,12 +20,13 @@ const loadStaticRunner = async (dispatch, { path, loader, action, error }) => {
     }
 
     dispatch((state: State) => action(SetPathStatus(state, { path, status: 'ready' }), data))
-
   } catch (err) {
     console.error(err)
     dispatch(error, err)
   }
 }
+
+loadStaticRunner.fxName = 'loadStatic';
 
 const loadStatic = fx(loadStaticRunner)
 

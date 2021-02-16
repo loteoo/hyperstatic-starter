@@ -18,9 +18,6 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
     return obj
   }, {})
 
-
-  // TODO: memoize getLocation
-
   // Utility function to parse data from paths
   const getLocation = (pathname: string): LocationState => {
     const [path, qs] = pathname.split('?')
@@ -71,7 +68,10 @@ const hyperstatic = ({ routes, options, init, view, subscriptions = (_s) => [], 
 
   return app({
     init: LocationChanged({ ...init, paths: {} } as State, initialPath),
-    view: (state) => provide({ state, meta, options, getLocation, PreloadPage }, h('div', { id: 'app' }, view(state))),
+    view: (state) => provide(
+      { state, meta, options, getLocation, PreloadPage },
+      h('div', { id: 'app' }, view(state))
+    ),
     subscriptions: (state) => [
       ...subscriptions(state),
       onRouteChanged(LocationChanged),

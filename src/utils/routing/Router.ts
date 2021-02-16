@@ -5,7 +5,22 @@ const Router = () => ({ state, meta, options }) => {
   const view = meta[route]?.bundle?.default;
 
   if (view) {
-    return view(state)
+    if (state.paths[path] === 'ready') {
+
+      // @ts-expect-error
+      if (window.pathRendered) {
+
+        // Wait after render
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            // @ts-expect-error
+            window.pathRendered(path)
+          })
+        });
+      }
+
+      return view(state)
+    }
   }
 
   // Display custom loader if specified

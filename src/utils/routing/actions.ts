@@ -8,10 +8,7 @@ export const SetPathStatus = (state: State, { path, status }: SetPathStatusArgs)
   ...state,
   paths: {
     ...state.paths,
-    [path]: {
-      ...state.paths[path],
-      status
-    }
+    [path]: status
   }
 })
 
@@ -19,7 +16,7 @@ export const InitializePath = (state: State, { location, bundle }) => {
   const { path } = location;
 
   // If current path is already initiated, do nothing
-  if (state.paths[path]?.status === 'ready') {
+  if (state.paths[path] === 'ready') {
     return state;
   }
 
@@ -41,7 +38,7 @@ export const InitializePath = (state: State, { location, bundle }) => {
   if (Array.isArray(action)) {
 
     // Get only the "loadStatic" effect tuples
-    const loadEffects = action.slice(1).filter((fx => fx[0].name === 'loadStaticRunner'))
+    const loadEffects = action.slice(1).filter((fx => fx[0].fxName === 'loadStatic'))
 
     // If this page has data requirements
     if (loadEffects.length > 0) {
@@ -56,5 +53,5 @@ export const InitializePath = (state: State, { location, bundle }) => {
     return action
   }
 
-  return action
+  return SetPathStatus(action, { path, status: 'ready' })
 }

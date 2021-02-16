@@ -30,13 +30,9 @@ interface LocationState {
 
 type PathStatus = 'iddle' | 'loading' | 'fetching' | 'ready' | 'error';
 
-interface PathsState {
-  status: PathStatus;
-}
-
 interface State {
   options: OptionsState;
   location: LocationState;
-  paths: Record<string, PathsState>;
+  paths: Record<string, PathStatus>;
   [x: string]: any;
 }

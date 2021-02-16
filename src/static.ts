@@ -5,6 +5,7 @@ import crypto from 'crypto'
 import replace from 'replace-in-file'
 import handler from 'serve-handler'
 import http from 'http'
+import events from 'events'
 
 const createStaticServer = (port, distFolder) =>
   http.createServer((request, response) =>
@@ -24,11 +25,6 @@ interface StaticOptions {
   extraPages?: string[]
 }
 
-function delay(time) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, time)
-  });
-}
 
 const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/', extraPages = [] }: StaticOptions) => {
   try {
@@ -36,9 +32,13 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
     // Spin up a static server to use for prerendering with pupeteer
     await createStaticServer(port, distFolder)
 
+    console.log('Rendering site...')
+
     const baseUrl = `http://localhost:${port}`
 
     const cache = {}
+
+    const renderEvents = new events.EventEmitter();
 
     // Initial render queue
     const renderQueue = [
@@ -56,12 +56,16 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       }
     });
 
-    await page.exposeFunction('cacheData', (path: string, data: any) => {
-      cache[path] = data;
+    await page.exposeFunction('cacheData', (key: string, data: any) => {
+      cache[key] = data;
+    });
+
+    await page.exposeFunction('pathRendered', (path: string) => {
+      renderEvents.emit(`${path}-rendered`);
     });
 
     // Load page
-    await page.goto(`${baseUrl}${entryPoint}`);
+    await page.goto(`${baseUrl}${entryPoint}`, { waitUntil: 'networkidle0' });
 
     // Pre-render loop
     for (let i = 0; i < renderQueue.length; i++) {
@@ -71,7 +75,11 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
 
       page.on('pageerror', function (err) {
         console.log(`Runtime error in page: ${pagePath} Error: ${err.toString()}`)
-        // process.exit(1)
+        process.exit(1)
+      })
+
+      const pathRendered = new Promise<void>((resolve) => {
+        renderEvents.once(`${pagePath}-rendered`, resolve)
       })
 
       // Navigate to the page client-side
@@ -80,16 +88,11 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
         window.dispatchEvent(new CustomEvent("pushstate"))
       }, pagePath)
 
-      await delay(5000);
+      // Wait for page to render
+      await pathRendered;
 
-      const html = await page.content(); // serialized HTML of page DOM.
-
-      // Invalid pages return empty strings as HTML. Do not save those.
-      // TODO: remove this check if possible
-      if (!html) {
-        console.log('Empty page: ' + pagePath)
-        continue
-      }
+      // Get HTML string from page DOM.
+      const html = await page.content();
 
       // Convert URI path to absolute disk path in the output dir
       const pageFilePath = pagePath === '/' ? '/index.html' : `${pagePath}/index.html`
@@ -103,25 +106,22 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       console.log(`Page created: ${pageFileAbsolutePath}`)
     }
 
-
     await browser.close();
 
     console.log('Pages rendered!')
 
 
 
+    console.log('Saving loadStatic data cache...')
 
-
-    console.log('Saving static data...')
-
-    const cachePaths = Object.keys(cache)
+    const cacheKeys = Object.keys(cache)
 
     let cacheUrlArray = []
 
-    for (let i = 0; i < cachePaths.length; i++) {
-      const path = cachePaths[i]
-      const data = cache[path]
-      const fileName = crypto.createHash('md5').update(path).digest('hex') + '.json'
+    for (let i = 0; i < cacheKeys.length; i++) {
+      const key = cacheKeys[i]
+      const data = cache[key]
+      const fileName = crypto.createHash('md5').update(key).digest('hex') + '.json'
       const filePath = '/data/' + fileName
 
       cacheUrlArray.push(filePath)
@@ -131,12 +131,12 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       console.log(`Data saved: ${dataAbsolutePath}`)
     }
 
-    const cacheFetchUrls = cachePaths.reduce((obj, curr, i) => ({
+    const cacheFetchUrls = cacheKeys.reduce((obj, curr, i) => ({
       ...obj,
       [curr]: cacheUrlArray[i]
     }), {})
 
-    console.log('Updating bundles...')
+    console.log('Updating pages...')
 
     const inlineData = {
       cache: cacheFetchUrls,
@@ -148,17 +148,11 @@ const renderPages = async ({ port = 54322, distFolder = 'dist', entryPoint = '/'
       to: `<script>window.HYPERSTATIC_DATA = ${JSON.stringify(inlineData)}</script></body>`,
       countMatches: true
     })
-    console.log('Bundles updated! Results: ')
-    results.forEach(result => {
-      if (result.hasChanged) {
-        console.log(result)
-      }
-    })
-
+    console.log(`${results.length} pages updated!`)
 
   } catch (error) {
     console.error(error)
-    // process.exit(1)
+    process.exit(1)
   }
 
   console.log('Rendering complete! 🎉')

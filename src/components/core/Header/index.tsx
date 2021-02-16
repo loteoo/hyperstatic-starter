@@ -8,13 +8,7 @@ const Header = () => (
   <header class={styles.header}>
     <div class={[utils.container, styles.inner]}>
       <Logo />
-      <Link href="/secondary">
-        {({ status }) => (
-          <span>
-            Secondary page <small>{status}</small>
-          </span>
-        )}
-      </Link>
+      <Link href="/secondary">Secondary page</Link>
       <Link href="/counter">Counter page</Link>
       <Link href="/characters">Character list</Link>
     </div>

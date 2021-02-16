@@ -8,7 +8,7 @@ const Link = ({ href, ...rest }, children) => ({
 }) => {
   const location = getLocation(href)
   const { route, path } = location
-  const status = state.paths[path]?.status ?? 'iddle'
+  const status = state.paths[path] ?? 'iddle'
 
   const renderChildren = (child) => {
     if (typeof child === 'function') {

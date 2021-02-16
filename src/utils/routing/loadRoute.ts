@@ -14,10 +14,10 @@ export const loadRoute = fx(async (dispatch, { meta, location }: LoadRouteArgs) 
     if (!meta[route].bundle) {
       const bundle = await meta[route].promise;
       meta[route].bundle = bundle
-      dispatch([InitializePath, { location, bundle: meta[route].bundle }])
+      dispatch(InitializePath, { location, bundle })
     }
   } catch (err) {
-    dispatch([SetPathStatus, { path, status: 'error' }])
+    dispatch(SetPathStatus, { path, status: 'error' })
     console.error(err)
   }
 })

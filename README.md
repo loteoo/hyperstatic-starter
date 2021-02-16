@@ -46,8 +46,4 @@ npm run render-pages
 
 This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter). Hyperstatic and a few pages was then added in.
 
-// TODO:
-
-- handle loading views if slow network (register nav requests and process them when ready)
-- When building the pages statically, have a way to detect when the page has rendered before moving to the next one
 - add fastNav option
