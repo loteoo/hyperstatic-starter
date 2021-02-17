@@ -14,14 +14,14 @@ const Link = ({ href, ...rest }, children) => ({
   const location = getLocation(href)
   const { route, path } = location
   const status = state.paths[path] ?? 'iddle'
-
+  const active = state.location.path === path
   const navigateEventName = state.fastClicks ? 'onmousedown' : 'onclick'
-
   const renderChildren = (child) => {
     if (typeof child === 'function') {
       const childNode = child({
         ...location,
-        status
+        status,
+        active
       })
       if (typeof childNode === 'object' && 'node' in childNode) {
         return childNode
@@ -45,6 +45,7 @@ const Link = ({ href, ...rest }, children) => ({
         href,
         onclick: PreventDefault,
         [navigateEventName]: DumbNavigate,
+        'aria-current': active,
         ...rest
       },
       renderChildren(children)
@@ -81,6 +82,7 @@ const Link = ({ href, ...rest }, children) => ({
       onfocus: PreloadPageHandler,
       'data-path': path,
       'data-status': status,
+      'aria-current': active,
       ...rest
     },
     renderChildren(children)

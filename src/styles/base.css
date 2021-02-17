@@ -95,6 +95,8 @@ a,
   color: inherit;
   &:hover {
   }
+  &[aria-current] {
+  }
 }
 
 /* === Buttons === */

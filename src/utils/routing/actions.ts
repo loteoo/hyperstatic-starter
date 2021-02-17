@@ -27,7 +27,6 @@ export const InitializePath = (state: State, { location, bundle }) => {
     return SetPathStatus(state, { path, status: 'ready' })
   }
 
-
   // Compute next state or action tuple using the provided "init" action
   const action = bundle?.init(
     state,
