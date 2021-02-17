@@ -1,5 +1,5 @@
 import Logo from '/components/core/Logo'
-import Link from '/utils/routing/Link'
+import { Link } from 'hyperstatic'
 
 import utils from '/styles/utils.css'
 import styles from './header.css'

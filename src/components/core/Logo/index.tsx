@@ -1,6 +1,6 @@
 import logo from '/assets/favicon.png'
 
-import Link from '/utils/routing/Link'
+import { Link } from 'hyperstatic'
 
 import styles from './logo.css'
 

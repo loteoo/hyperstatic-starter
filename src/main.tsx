@@ -1,5 +1,5 @@
 // Hyperstatic runtime
-import hyperstatic from './utils/routing/hyperstatic'
+import { hyperstatic } from 'hyperstatic'
 
 // Root view
 import Loader from '/components/core/Loader'

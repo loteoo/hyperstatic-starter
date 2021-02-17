@@ -1,6 +1,5 @@
 import utils from '/styles/utils.css'
-import Link from '/utils/routing/Link'
-import loadStatic from '/utils/routing/loadStatic'
+import { Link, loadStatic } from 'hyperstatic'
 
 import styles from './character-list.css'
 
@@ -10,7 +9,7 @@ const HandleCharacters = (state, data) => ({
 })
 
 // Fetch characters
-export const init = (state: State) => [
+export const init = (state) => [
   {
     ...state,
     characterlist: []
