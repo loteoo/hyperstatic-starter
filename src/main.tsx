@@ -18,7 +18,7 @@ const routes = {
 const options = {
   baseUrl: '/', // Path prefix
   loader: Loader, // Custom loading indicator in case of slow networks
-  fastClicks: false
+  fastClicks: true
 }
 
 hyperstatic({

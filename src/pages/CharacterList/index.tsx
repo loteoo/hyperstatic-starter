@@ -17,7 +17,6 @@ export const init = (state) => [
   loadStatic({
     loader: async () => {
       const response = await fetch(`https://rickandmortyapi.com/api/character`)
-      // const response = await fetch(`/characters.json`)
       const data = await response.json()
       return data
     },
