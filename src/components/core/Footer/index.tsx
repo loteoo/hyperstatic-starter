@@ -1,7 +1,7 @@
 import utils from '/styles/utils.css'
 import styles from './footer.css'
 
-const Footer = (state) => (
+const Footer = () => (
   <footer class={styles.footer}>
     <div class={[utils.container, styles.inner]}>
       <a
