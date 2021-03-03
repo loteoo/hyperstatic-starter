@@ -1,5 +1,5 @@
 <h1 align="center">
-  Hyperstatic Parcel TypeScript starter
+  Hyperstatic starter
 </h1>
 
 [Live demo](https://hyperstatic-starter.netlify.com/)
@@ -33,7 +33,7 @@ npm run prerender
 ## Features
 
 - [Parcel](https://parceljs.org/) for dev tooling
-- TypeScript codebase
+- Written in TypeScript
 - CSS Modules for scoping CSS
 - Smart CSS defaults on top of [sanitize.css](https://csstools.github.io/sanitize.css/)
 - [JSX](https://reactjs.org/docs/introducing-jsx.html) ready to go with the new JSX runtime (automatic import of the `h` function)
