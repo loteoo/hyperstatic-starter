@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "hyperapp": "^2.0.8",
-    "hyperstatic": "^2.0.0",
+    "hyperstatic": "^2.0.1",
     "sanitize.css": "^12.0.1"
   },
   "devDependencies": {
