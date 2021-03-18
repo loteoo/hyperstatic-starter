@@ -6,14 +6,14 @@
   "scripts": {
     "start": "parcel src/index.html --open",
     "build": "parcel build src/index.html",
-    "prerender": "rimraf dist && npm run build && hyperstatic",
+    "prerender": "rimraf .cache && rimraf dist && npm run build && hyperstatic",
     "lint": "eslint \"./src/**/*.{js,jsx}\" --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "render-pages": "npm run build && node ./render-pages.js"
   },
   "dependencies": {
     "hyperapp": "^2.0.8",
-    "hyperstatic": "^2.0.1",
+    "hyperstatic": "^2.0.3",
     "sanitize.css": "^12.0.1"
   },
   "devDependencies": {

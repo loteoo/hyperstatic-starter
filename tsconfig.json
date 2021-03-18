@@ -2,9 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "CommonJS",
+    "module": "esnext",
     "moduleResolution": "node",
-    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "/*": ["./src/*"]
