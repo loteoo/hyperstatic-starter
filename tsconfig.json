@@ -8,8 +8,7 @@
     "paths": {
       "/*": ["./src/*"]
     },
-    "jsx": "react-jsx",
-    "jsxImportSource": "/utils/jsx",
+    "jsx": "preserve",
     "checkJs": true,
     "noEmit": true,
     "plugins": [

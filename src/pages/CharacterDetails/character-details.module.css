@@ -3,7 +3,7 @@
   grid-template-columns: auto 1fr;
   grid-gap: 1rem;
 }
-.infoGrid {
+.info-grid {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-gap: 0.25rem 1rem;

@@ -32,11 +32,11 @@ npm run prerender
 
 ## Features
 
-- [Parcel](https://parceljs.org/) for dev tooling
+- [Vite](https://vitejs.dev/) for dev tooling
 - Written in TypeScript
-- CSS Modules for scoping CSS
+- CSS modules + nested syntax
 - Smart CSS defaults on top of [sanitize.css](https://csstools.github.io/sanitize.css/)
-- [JSX](https://reactjs.org/docs/introducing-jsx.html) ready to go with the new JSX runtime (automatic import of the `h` function)
+- [JSX](https://reactjs.org/docs/introducing-jsx.html) ready to go
 - Absolute imports (say goodbye to the `../../` hell)
 - PWA/SPA ready with a default web app manifest
 

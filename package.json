@@ -4,25 +4,24 @@
   "description": "Hyperapp PWA starter",
   "author": "Alexandre Lotte <dev@alexlotte.ca>",
   "scripts": {
-    "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html",
-    "prerender": "rimraf .cache && rimraf dist && npm run build && hyperstatic",
+    "start": "vite src --config vite.config.js",
+    "build": "vite build src/index.html",
+    "prerender": "npm run build && hyperstatic",
     "lint": "eslint \"./src/**/*.{js,jsx}\" --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "render-pages": "npm run build && node ./render-pages.js"
   },
   "dependencies": {
     "hyperapp": "^2.0.8",
+    "hyperapp-jsx-pragma": "^1.3.0",
     "hyperstatic": "^2.0.3",
     "sanitize.css": "^12.0.1"
   },
   "devDependencies": {
-    "parcel": "^1.12.4",
-    "postcss-modules": "^1.5.0",
-    "postcss-nested": "^4.2.1",
-    "postcss-preset-env": "^6.7.0",
+    "postcss-nested": "^5.0.5",
     "rimraf": "^3.0.2",
-    "typescript": "^4.1.3"
+    "typescript": "^4.2.3",
+    "vite": "^2.1.5"
   },
   "browserslist": [
     "last 1 Chrome version"

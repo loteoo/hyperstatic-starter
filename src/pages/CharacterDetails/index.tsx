@@ -1,7 +1,7 @@
-import utils from '/styles/utils.css'
+import utils from '/styles/utils.module.css'
 import { loadStatic } from 'hyperstatic'
 
-import styles from './character-details.css'
+import styles from './character-details.module.css'
 
 const HandleCharacter = (state, data) => ({
   ...state,

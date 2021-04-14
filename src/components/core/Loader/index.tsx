@@ -1,4 +1,4 @@
-import utils from '/styles/utils.css'
+import utils from '/styles/utils.module.css'
 
 const Loader = () => (
   <div class={utils.container}>

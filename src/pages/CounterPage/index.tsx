@@ -1,6 +1,6 @@
 import Button from '/components/ui/Button'
 
-import utils from '/styles/utils.css'
+import utils from '/styles/utils.module.css'
 
 // Initialize state
 export const init = (state) => ({

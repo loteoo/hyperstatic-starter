@@ -1,5 +1,5 @@
 import Input from '/components/ui/Input'
-import utils from '/styles/utils.css'
+import utils from '/styles/utils.module.css'
 
 // Initialize state
 export const init = (state) => ({
