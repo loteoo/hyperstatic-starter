@@ -21,7 +21,6 @@ node_modules/
 # Mac files
 .DS_Store
 
-# Parcel
-.cache/
+# Vite
+.cache
 dist
-.parcel-cache

@@ -1,5 +1,5 @@
-import Input from '/components/ui/Input'
-import utils from '/styles/utils.css'
+import Input from '/src/components/ui/Input'
+import utils from '/src/styles/utils.module.css'
 
 // Initialize state
 export const init = (state) => ({
@@ -15,7 +15,7 @@ const SetB = (state, ev) => ({ ...state, b: Number(ev.target.value) })
 // View
 const HomePage = ({ a, b }) => (
   <div class={utils.container}>
-    <h1>Parcel + hyperapp = 💖</h1>
+    <h1>👋 Welcome to hyperstatic!</h1>
     <div class={utils.grid}>
       <Input type="number" name="a" value={a} onchange={SetA} />
       <Input type="number" name="b" value={b} onchange={SetB} />
@@ -23,9 +23,6 @@ const HomePage = ({ a, b }) => (
     <h2>
       {a} + {b} = {a + b}
     </h2>
-    <pre>
-      <code>{`"state": ${JSON.stringify({ a, b }, null, 2)}`}</code>
-    </pre>
   </div>
 )
 

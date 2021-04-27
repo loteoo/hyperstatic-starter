@@ -2,8 +2,8 @@
 import { hyperstatic } from 'hyperstatic'
 
 // Root view
-import Loader from '/components/core/Loader'
-import App from '/components/core/App'
+import Loader from '/src/components/core/Loader'
+import App from '/src/components/core/App'
 
 const routes = {
   '/': import('./pages/HomePage'),
@@ -26,5 +26,4 @@ hyperstatic({
   options,
   init: {},
   view: App,
-  node: document.getElementById('app')
 })

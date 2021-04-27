@@ -1,8 +1,8 @@
-import logo from '/assets/favicon.png'
+import logo from '/src/assets/logo.png'
 
 import { Link } from 'hyperstatic'
 
-import styles from './logo.css'
+import styles from './logo.module.css'
 
 const Logo = () => (
   <Link href="/" class={styles.logo}>

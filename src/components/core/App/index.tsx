@@ -1,8 +1,8 @@
-import Header from '/components/core/Header'
+import Header from '/src/components/core/Header'
 import { Router } from 'hyperstatic'
-import Footer from '/components/core/Footer'
+import Footer from '/src/components/core/Footer'
 
-import '/styles/base.css'
+import '/src/styles/base.module.css'
 
 const App = (state) => {
   return (

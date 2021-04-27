@@ -15,7 +15,7 @@ git clone https://github.com/loteoo/hyperstatic-starter.git
 cd hyperstatic-starter
 
 npm install         # Install dependencies
-npm start           # Dev server + live reload
+npm run dev         # Dev server + live reload
 ```
 
 Or use a [.zip download](https://github.com/loteoo/hyperstatic-starter/archive/master.zip)
@@ -28,18 +28,21 @@ npm run build
 
 # Build for production and prerender pages
 npm run prerender
+
+# Preview production build locally
+npm run preview
 ```
 
 ## Features
 
-- [Parcel](https://parceljs.org/) for dev tooling
+- [Vite](https://vitejs.dev/) for dev tooling
 - Written in TypeScript
-- CSS Modules for scoping CSS
+- CSS modules + nested syntax
 - Smart CSS defaults on top of [sanitize.css](https://csstools.github.io/sanitize.css/)
-- [JSX](https://reactjs.org/docs/introducing-jsx.html) ready to go with the new JSX runtime (automatic import of the `h` function)
+- [JSX](https://reactjs.org/docs/introducing-jsx.html) ready to go
 - Absolute imports (say goodbye to the `../../` hell)
 - PWA/SPA ready with a default web app manifest
 
 ---
 
-This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter). Hyperstatic and a few pages was then added in.
+This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter).

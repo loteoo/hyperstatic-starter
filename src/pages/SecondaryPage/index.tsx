@@ -1,6 +1,6 @@
 import { Link } from 'hyperstatic'
 
-import utils from '/styles/utils.css'
+import utils from '/src/styles/utils.module.css'
 
 const SecondaryPage = () => (
   <div class={utils.container}>

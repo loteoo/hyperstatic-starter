@@ -1,8 +1,8 @@
-import Logo from '/components/core/Logo'
+import Logo from '/src/components/core/Logo'
 import { Link } from 'hyperstatic'
 
-import utils from '/styles/utils.css'
-import styles from './header.css'
+import utils from '/src/styles/utils.module.css'
+import styles from './header.module.css'
 
 const Header = () => (
   <header class={styles.header}>
