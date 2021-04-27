@@ -1,6 +1,6 @@
 {
-  "short_name": "Hyperapp",
-  "name": "Hyperapp starter",
+  "short_name": "Hyperstatic",
+  "name": "Hyperstatic starter",
   "description": "Hyperapp starter with a modern configuration and best-practices in mind.",
   "display": "fullscreen",
   "scope": "/",

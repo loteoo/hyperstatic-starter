@@ -2,7 +2,7 @@
   Hyperstatic starter
 </h1>
 
-[Live demo](https://hyperstatic-starter.netlify.com/)
+[Live demo](https://hyperstatic-starter.netlify.app/)
 
 ## 🚀 Quick start:
 
