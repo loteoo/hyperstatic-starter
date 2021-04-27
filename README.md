@@ -15,7 +15,7 @@ git clone https://github.com/loteoo/hyperstatic-starter.git
 cd hyperstatic-starter
 
 npm install         # Install dependencies
-npm start           # Dev server + live reload
+npm run dev         # Dev server + live reload
 ```
 
 Or use a [.zip download](https://github.com/loteoo/hyperstatic-starter/archive/master.zip)
@@ -28,6 +28,9 @@ npm run build
 
 # Build for production and prerender pages
 npm run prerender
+
+# Preview production build locally
+npm run preview
 ```
 
 ## Features
@@ -42,4 +45,4 @@ npm run prerender
 
 ---
 
-This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter). Hyperstatic and a few pages was then added in.
+This starter project was based on this [Hyperapp starter](https://github.com/loteoo/hyperapp-starter).

@@ -1,11 +1,11 @@
-import utils from '/styles/utils.module.css'
+import utils from '/src/styles/utils.module.css'
 import { Link, loadStatic } from 'hyperstatic'
 
 import styles from './character-list.module.css'
 
 const HandleCharacters = (state, data) => ({
   ...state,
-  characterlist: state.characterlist.concat(data.results)
+  characterlist: state.characterlist.concat(data)
 })
 
 // Fetch characters
@@ -18,7 +18,14 @@ export const init = (state) => [
     loader: async () => {
       const response = await fetch(`https://rickandmortyapi.com/api/character`)
       const data = await response.json()
-      return data
+      const simplified = data.results.map((character) => ({
+        id: character.id,
+        name: character.name,
+        image: character.image,
+        species: character.species,
+        status: character.status,
+      }))
+      return simplified
     },
     action: HandleCharacters,
     error: (state) => state

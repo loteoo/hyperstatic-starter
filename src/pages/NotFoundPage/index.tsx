@@ -1,6 +1,6 @@
 import { Link } from 'hyperstatic'
 
-import utils from '/styles/utils.module.css'
+import utils from '/src/styles/utils.module.css'
 
 const NotFoundPage = () => (
   <div class={utils.container}>

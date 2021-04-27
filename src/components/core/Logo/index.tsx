@@ -1,4 +1,4 @@
-import logo from '/assets/favicon.png'
+import logo from '/src/assets/logo.png'
 
 import { Link } from 'hyperstatic'
 

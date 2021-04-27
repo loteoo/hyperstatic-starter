@@ -1,4 +1,4 @@
-import utils from '/styles/utils.module.css'
+import utils from '/src/styles/utils.module.css'
 import { loadStatic } from 'hyperstatic'
 
 import styles from './character-details.module.css'
@@ -22,12 +22,12 @@ export const init = (state, location) => [
       const response = await fetch(
         `https://rickandmortyapi.com/api/character/${location.params.id}`
       )
-      const data = await response.json()
+      const { episode, ...data } = await response.json()
       return data
     },
     action: HandleCharacter,
     error: (state) => state
-  })
+  }),
 ]
 
 // View
