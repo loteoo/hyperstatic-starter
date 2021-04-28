@@ -4,6 +4,8 @@
 
 [Live demo](https://hyperstatic-starter.netlify.app/)
 
+[Hyperstatic](https://hyperstatic.dev/)
+
 ## 🚀 Quick start:
 
 [Click here to use this template](https://github.com/loteoo/hyperstatic-starter/generate), or run these commands:
