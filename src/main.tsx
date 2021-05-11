@@ -1,5 +1,5 @@
 // Hyperstatic runtime
-import { hyperstatic } from 'hyperstatic'
+import { hyperstatic, Options } from 'hyperstatic'
 
 // Root view
 import Loader from '/src/components/core/Loader'
@@ -11,14 +11,13 @@ const routes = {
   '/counter': import('./pages/CounterPage'),
   '/characters': import('./pages/CharacterList'),
   '/characters/:id': import('./pages/CharacterDetails'),
-  '/:splat*': import('./pages/NotFoundPage')
 }
 
 // All of these are optional
-const options = {
+const options: Options = {
   baseUrl: '/', // Path prefix
   loader: Loader, // Custom loading indicator in case of slow networks
-  fastClicks: true
+  fastClicks: true,
 }
 
 hyperstatic({
