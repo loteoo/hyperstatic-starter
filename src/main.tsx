@@ -1,5 +1,5 @@
 // Hyperstatic runtime
-import { hyperstatic, Options } from 'hyperstatic'
+import { hyperstatic, onRouteChanged, onRouteChangeStart, Options } from 'hyperstatic'
 
 // Root view
 import Loader from '/src/components/core/Loader'
@@ -18,6 +18,7 @@ const options: Options = {
   baseUrl: '/', // Path prefix
   loader: Loader, // Custom loading indicator in case of slow networks
   fastClicks: true,
+  navigationDelay: 250,
 }
 
 hyperstatic({
@@ -25,4 +26,12 @@ hyperstatic({
   options,
   init: {},
   view: App,
+  subscriptions: (state) => [
+    onRouteChangeStart({
+      action: (state) => ({ ...state, navigationInProgress: true })
+    }),
+    onRouteChanged({
+      action: (state) => ({ ...state, navigationInProgress: false })
+    }),
+  ]
 })
